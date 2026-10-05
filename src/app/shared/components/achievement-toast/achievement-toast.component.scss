@@ -1,0 +1,137 @@
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/typography' as *;
+@use '../../../../styles/animations' as *;
+@use '../../../../styles/mixins' as *;
+
+.achievement-toast-container {
+  position: fixed;
+  top: 86px;
+  right: 24px;
+  z-index: 2000;
+  max-width: 420px;
+  width: calc(100vw - 48px);
+  animation: modalFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.toast-card {
+  position: relative;
+  display: flex;
+  align-items: flex-start;
+  gap: 14px;
+  background: rgba(6, 11, 24, 0.94);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid $cyan-core;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.8), 0 0 25px rgba(0, 240, 255, 0.3);
+  padding: 16px;
+  border-radius: 6px;
+  overflow: hidden;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 4px;
+    height: 100%;
+    background: $cyan-core;
+  }
+
+  &.rarity-rare {
+    border-color: $blue-electric;
+    &::before { background: $blue-electric; }
+  }
+
+  &.rarity-epic {
+    border-color: $accent-purple;
+    &::before { background: $accent-purple; }
+  }
+
+  &.rarity-legendary {
+    border-color: $accent-amber;
+    &::before { background: $accent-amber; }
+  }
+}
+
+.toast-icon-wrap {
+  width: 38px;
+  height: 38px;
+  background: rgba(0, 240, 255, 0.1);
+  border: 1px solid rgba(0, 240, 255, 0.3);
+  border-radius: 4px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.1rem;
+  flex-shrink: 0;
+}
+
+.toast-body {
+  flex: 1;
+
+  .toast-badge {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: $font-cyber;
+    font-size: 0.65rem;
+    color: $cyan-core;
+    letter-spacing: 0.15em;
+    margin-bottom: 4px;
+
+    .badge-pulse {
+      width: 6px;
+      height: 6px;
+      background: $cyan-core;
+      border-radius: 50%;
+      animation: cyberBlink 0.8s infinite;
+    }
+  }
+
+  .toast-title {
+    font-family: $font-cyber;
+    font-size: 0.95rem;
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: 0.08em;
+    margin-bottom: 4px;
+  }
+
+  .toast-desc {
+    font-family: $font-mono;
+    font-size: 0.73rem;
+    color: $silver-metal;
+    line-height: 1.4;
+    margin-bottom: 8px;
+  }
+
+  .toast-meta {
+    display: flex;
+    gap: 10px;
+    font-family: $font-mono;
+    font-size: 0.65rem;
+    letter-spacing: 0.1em;
+
+    .toast-xp {
+      color: $accent-green;
+      font-weight: 700;
+    }
+
+    .toast-rarity {
+      color: $silver-muted;
+    }
+  }
+}
+
+.toast-close {
+  background: transparent;
+  color: $silver-muted;
+  font-size: 0.9rem;
+  cursor: pointer;
+  padding: 4px;
+  transition: color $transition-fast;
+
+  &:hover {
+    color: #ffffff;
+  }
+}

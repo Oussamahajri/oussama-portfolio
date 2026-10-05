@@ -1,0 +1,136 @@
+<div class="briefing-overlay" (click)="onClose()">
+  <div class="briefing-dossier" (click)="$event.stopPropagation()">
+    <!-- Briefing Header -->
+    <div class="briefing-header">
+      <div class="header-left">
+        <span class="mission-tag">{{ mission.code }} // {{ mission.codename }}</span>
+        <span class="clearance-tag">CLEARANCE: {{ mission.clearance }}</span>
+      </div>
+      <button
+        class="close-btn"
+        (click)="onClose()"
+        (mouseenter)="audioService.playHover()"
+        aria-label="Close mission briefing">
+        [ESC] ✕
+      </button>
+    </div>
+
+    <!-- Main Briefing Body -->
+    <div class="briefing-body">
+      <!-- Title & Status Area -->
+      <div class="briefing-title-zone">
+        <div class="status-indicator-row">
+          <span class="pulse-beacon"></span>
+          <span class="status-text">{{ mission.statusBadge }}</span>
+          <span class="date-text">[{{ mission.dateRange }}]</span>
+        </div>
+        <h1 class="mission-title">{{ mission.title }}</h1>
+        <h2 class="mission-subtitle">{{ mission.subtitle }}</h2>
+      </div>
+
+      <!-- Tactical Metrics Bar -->
+      <div class="metrics-bar">
+        @for (m of mission.metrics; track m.label) {
+          <div class="metric-cell">
+            <span class="metric-val">{{ m.value }}</span>
+            <span class="metric-lbl">{{ m.label }}</span>
+          </div>
+        }
+      </div>
+
+      <!-- Problem vs Solution Analysis -->
+      <div class="analysis-grid">
+        <div class="analysis-block problem-block">
+          <div class="block-tag">// THE PROBLEM & TACTICAL NEED</div>
+          <p class="block-text">{{ mission.problem }}</p>
+        </div>
+
+        <div class="analysis-block solution-block">
+          <div class="block-tag">// THE ARCHITECTURAL SOLUTION</div>
+          <p class="block-text">{{ mission.solution }}</p>
+        </div>
+      </div>
+
+      <!-- Three-Tier Architecture Map -->
+      <div class="architecture-section">
+        <div class="section-title">
+          <span class="slash">//</span> LAYERED SYSTEMS ARCHITECTURE
+        </div>
+        <div class="architecture-stack">
+          @for (arch of mission.architecture; track arch.layer) {
+            <div class="arch-layer">
+              <div class="layer-name">{{ arch.layer }}</div>
+              <div class="layer-tech">{{ arch.technology }}</div>
+              <div class="layer-role">{{ arch.role }}</div>
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- Key Capabilities & Features -->
+      <div class="features-section">
+        <div class="section-title">
+          <span class="slash">//</span> SYSTEM CAPABILITIES & MODULES
+        </div>
+        <div class="features-list">
+          @for (feat of mission.features; track feat) {
+            <div class="feature-item">
+              <span class="check-icon">✓</span>
+              <span>{{ feat }}</span>
+            </div>
+          }
+        </div>
+      </div>
+
+      <!-- Tech Stack Badges -->
+      <div class="tech-section">
+        <div class="section-title">
+          <span class="slash">//</span> DEPLOYED TECHNOLOGIES
+        </div>
+        <div class="tech-chips">
+          @for (t of mission.technologies; track t) {
+            <span class="tech-chip">{{ t }}</span>
+          }
+        </div>
+      </div>
+
+      <!-- Tactical Terminal Log -->
+      <div class="tactical-log-section">
+        <div class="section-title">
+          <span class="slash">//</span> DEVELOPMENT MISSION LOGS
+        </div>
+        <div class="log-stream">
+          @for (log of mission.tacticalLog; track log) {
+            <div class="log-entry">{{ log }}</div>
+          }
+        </div>
+      </div>
+
+      <!-- External Links & Actions -->
+      <div class="actions-row">
+        @if (mission.githubUrl) {
+          <a
+            class="action-btn"
+            [href]="mission.githubUrl"
+            target="_blank"
+            rel="noopener noreferrer"
+            (mouseenter)="audioService.playHover()">
+            <span>INSPECT REPOSITORY [GITHUB]</span>
+            <span class="btn-icon">↗</span>
+          </a>
+        }
+        @if (mission.demoUrl) {
+          <a
+            class="action-btn highlight"
+            [href]="mission.demoUrl"
+            target="_blank"
+            rel="noopener noreferrer"
+            (mouseenter)="audioService.playHover()">
+            <span>ACCESS LIVE DEPLOYMENT</span>
+            <span class="btn-icon">↗</span>
+          </a>
+        }
+      </div>
+    </div>
+  </div>
+</div>

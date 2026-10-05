@@ -1,0 +1,746 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/typography' as *;
+@use '../../../styles/animations' as *;
+@use '../../../styles/mixins' as *;
+
+.recruiter-container {
+  position: fixed;
+  inset: 0;
+  z-index: 400;
+  background: #040812;
+  display: flex;
+  flex-direction: column;
+  color: $silver-light;
+  overflow: hidden;
+}
+
+.recruiter-navbar {
+  height: 64px;
+  background: #070e1e;
+  border-bottom: 1px solid rgba(0, 240, 255, 0.2);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 24px;
+  flex-shrink: 0;
+
+  .brand-zone {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+
+    .badge-recruiter {
+      font-family: $font-mono;
+      font-size: 0.65rem;
+      background: rgba(41, 121, 255, 0.2);
+      border: 1px solid $blue-electric;
+      color: #ffffff;
+      padding: 3px 8px;
+      border-radius: 3px;
+      letter-spacing: 0.1em;
+    }
+
+    .brand-name {
+      font-family: $font-cyber;
+      font-size: 1.1rem;
+      font-weight: 800;
+      color: #ffffff;
+      letter-spacing: 0.08em;
+    }
+
+    .brand-role {
+      font-family: $font-mono;
+      font-size: 0.75rem;
+      color: $silver-muted;
+    }
+  }
+
+  .recruiter-tabs {
+    display: flex;
+    gap: 4px;
+
+    .tab-btn {
+      font-family: $font-cyber;
+      font-size: 0.72rem;
+      letter-spacing: 0.1em;
+      color: $silver-metal;
+      padding: 8px 14px;
+      border-radius: 4px;
+      cursor: pointer;
+      transition: all $transition-fast;
+
+      &:hover {
+        background: rgba(255, 255, 255, 0.06);
+        color: #ffffff;
+      }
+
+      &.active {
+        background: rgba(41, 121, 255, 0.2);
+        color: #ffffff;
+        border: 1px solid $blue-electric;
+      }
+    }
+  }
+
+  .btn-exit {
+    @include cyber-button;
+    font-size: 0.7rem;
+    padding: 7px 14px;
+  }
+}
+
+.recruiter-main {
+  flex: 1;
+  overflow-y: auto;
+  padding: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+  width: 100%;
+
+  @include custom-scrollbar;
+}
+
+.tab-pane {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+// Overview Grid
+.overview-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+}
+
+.executive-card, .readiness-card {
+  background: rgba(10, 18, 36, 0.8);
+  border: 1px solid rgba(0, 240, 255, 0.15);
+  border-radius: 6px;
+  padding: 24px;
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+
+  .card-title {
+    font-family: $font-cyber;
+    font-size: 0.85rem;
+    color: $cyan-core;
+    letter-spacing: 0.12em;
+    border-bottom: 1px solid rgba(162, 180, 199, 0.1);
+    padding-bottom: 8px;
+  }
+
+  .candidate-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+
+    .candidate-name {
+      font-family: $font-cyber;
+      font-size: 1.6rem;
+      font-weight: 800;
+      color: #ffffff;
+    }
+
+    .candidate-spec {
+      font-family: $font-mono;
+      font-size: 0.85rem;
+      color: $blue-electric;
+      margin-top: 2px;
+    }
+
+    .candidate-loc {
+      font-family: $font-body;
+      font-size: 0.78rem;
+      color: $silver-muted;
+      margin-top: 4px;
+    }
+
+    .status-pill {
+      font-family: $font-mono;
+      font-size: 0.65rem;
+      color: $accent-green;
+      background: rgba(0, 255, 136, 0.1);
+      border: 1px solid rgba(0, 255, 136, 0.3);
+      padding: 4px 10px;
+      border-radius: 20px;
+    }
+  }
+
+  .candidate-bio {
+    font-family: $font-body;
+    font-size: 0.9rem;
+    line-height: 1.6;
+    color: $silver-light;
+  }
+
+  .philosophy-box {
+    background: rgba(0, 240, 255, 0.04);
+    border-left: 3px solid $blue-tech;
+    padding: 10px 14px;
+
+    .box-tag {
+      font-family: $font-mono;
+      font-size: 0.65rem;
+      color: $silver-muted;
+    }
+
+    p {
+      font-family: $font-body;
+      font-size: 0.85rem;
+      font-style: italic;
+      color: $silver-light;
+      margin-top: 4px;
+    }
+  }
+}
+
+.readiness-items {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+
+  .readiness-item {
+    display: flex;
+    flex-direction: column;
+    gap: 2px;
+
+    .item-label {
+      font-family: $font-mono;
+      font-size: 0.65rem;
+      color: $silver-muted;
+      letter-spacing: 0.08em;
+    }
+
+    .item-value {
+      font-family: $font-body;
+      font-size: 0.85rem;
+      color: #ffffff;
+      font-weight: 500;
+    }
+  }
+}
+
+.quick-links {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-top: auto;
+
+  .primary-action-btn {
+    @include cyber-button;
+    background: rgba(0, 240, 255, 0.15);
+    border-color: $cyan-core;
+    color: #ffffff;
+    font-size: 0.75rem;
+  }
+
+  .secondary-action-btn {
+    @include cyber-button;
+    font-size: 0.72rem;
+  }
+}
+
+.block-title {
+  font-family: $font-cyber;
+  font-size: 0.9rem;
+  color: $cyan-core;
+  letter-spacing: 0.12em;
+  margin-bottom: 14px;
+}
+
+.featured-missions-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+
+  .recruiter-mission-card {
+    background: rgba(10, 18, 36, 0.8);
+    border: 1px solid rgba(162, 180, 199, 0.15);
+    padding: 18px;
+    border-radius: 6px;
+    cursor: pointer;
+    transition: all $transition-smooth;
+
+    &:hover {
+      border-color: $cyan-core;
+      background: rgba(14, 26, 52, 0.95);
+      transform: translateY(-2px);
+    }
+
+    .m-card-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 8px;
+
+      .m-code {
+        font-family: $font-cyber;
+        font-size: 0.7rem;
+        color: $cyan-core;
+      }
+
+      .m-cat {
+        font-family: $font-mono;
+        font-size: 0.65rem;
+        color: $silver-muted;
+      }
+    }
+
+    .m-title {
+      font-family: $font-cyber;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin-bottom: 6px;
+    }
+
+    .m-sum {
+      font-family: $font-body;
+      font-size: 0.8rem;
+      color: $silver-metal;
+      line-height: 1.4;
+      margin-bottom: 12px;
+    }
+
+    .m-stack {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+      margin-bottom: 12px;
+
+      .t-pill {
+        font-family: $font-mono;
+        font-size: 0.62rem;
+        background: rgba(255, 255, 255, 0.05);
+        color: $silver-light;
+        padding: 2px 6px;
+        border-radius: 2px;
+      }
+    }
+
+    .m-link {
+      font-family: $font-cyber;
+      font-size: 0.68rem;
+      color: $cyan-core;
+      background: none;
+      cursor: pointer;
+    }
+  }
+}
+
+// Skills Tab
+.pane-heading {
+  font-family: $font-cyber;
+  font-size: 1.1rem;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 0.1em;
+  margin-bottom: 16px;
+}
+
+.skills-recruiter-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 16px;
+
+  .recruiter-skill-item {
+    background: rgba(10, 18, 36, 0.7);
+    border: 1px solid rgba(162, 180, 199, 0.15);
+    padding: 16px;
+    border-radius: 6px;
+
+    .s-header {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 6px;
+
+      .s-name {
+        font-family: $font-cyber;
+        font-size: 0.9rem;
+        font-weight: 700;
+        color: #ffffff;
+      }
+
+      .s-level {
+        font-family: $font-mono;
+        font-size: 0.7rem;
+        color: $cyan-core;
+      }
+    }
+
+    .s-track {
+      height: 4px;
+      background: rgba(255, 255, 255, 0.08);
+      border-radius: 2px;
+      overflow: hidden;
+      margin-bottom: 8px;
+
+      .s-fill {
+        height: 100%;
+        background: $blue-electric;
+      }
+    }
+
+    .s-desc {
+      font-family: $font-body;
+      font-size: 0.8rem;
+      color: $silver-metal;
+      line-height: 1.4;
+      margin-bottom: 8px;
+    }
+
+    .s-meta {
+      display: flex;
+      justify-content: space-between;
+      font-family: $font-mono;
+      font-size: 0.65rem;
+      color: $silver-muted;
+    }
+  }
+}
+
+// Missions Tab
+.recruiter-missions-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+
+  .recruiter-mission-row {
+    background: rgba(10, 18, 36, 0.75);
+    border: 1px solid rgba(162, 180, 199, 0.15);
+    padding: 18px;
+    border-radius: 6px;
+    display: grid;
+    grid-template-columns: 240px 1fr 180px;
+    gap: 18px;
+    align-items: center;
+
+    .m-code-tag {
+      font-family: $font-mono;
+      font-size: 0.65rem;
+      color: $cyan-core;
+    }
+
+    .m-row-title {
+      font-family: $font-cyber;
+      font-size: 1rem;
+      font-weight: 700;
+      color: #ffffff;
+      margin: 2px 0;
+    }
+
+    .m-row-sub {
+      font-family: $font-mono;
+      font-size: 0.72rem;
+      color: $silver-metal;
+    }
+
+    .m-row-dates {
+      font-family: $font-mono;
+      font-size: 0.62rem;
+      color: $silver-muted;
+      margin-top: 4px;
+    }
+
+    .m-row-summary {
+      font-family: $font-body;
+      font-size: 0.82rem;
+      color: $silver-light;
+      line-height: 1.4;
+      margin-bottom: 8px;
+    }
+
+    .tech-inline {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 4px;
+
+      .tech-tag {
+        font-family: $font-mono;
+        font-size: 0.62rem;
+        background: rgba(0, 240, 255, 0.08);
+        color: $silver-light;
+        padding: 2px 6px;
+        border-radius: 2px;
+      }
+    }
+
+    .row-right {
+      display: flex;
+      flex-direction: column;
+      gap: 6px;
+
+      .briefing-action-btn {
+        @include cyber-button;
+        font-size: 0.68rem;
+        padding: 8px 12px;
+      }
+
+      .link-github {
+        font-family: $font-mono;
+        font-size: 0.7rem;
+        color: $silver-metal;
+        text-align: center;
+      }
+    }
+  }
+}
+
+// Timeline Tab
+.recruiter-timeline-list {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+
+  .r-timeline-item {
+    background: rgba(10, 18, 36, 0.7);
+    border: 1px solid rgba(162, 180, 199, 0.12);
+    padding: 16px 20px;
+    border-radius: 6px;
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 20px;
+
+    .r-year-column {
+      display: flex;
+      flex-direction: column;
+
+      .r-year {
+        font-family: $font-cyber;
+        font-size: 1.2rem;
+        font-weight: 800;
+        color: $cyan-core;
+      }
+
+      .r-period {
+        font-family: $font-mono;
+        font-size: 0.68rem;
+        color: $silver-muted;
+      }
+    }
+
+    .r-top {
+      display: flex;
+      justify-content: space-between;
+      margin-bottom: 6px;
+
+      .r-title {
+        font-family: $font-cyber;
+        font-size: 0.95rem;
+        font-weight: 700;
+        color: #ffffff;
+      }
+
+      .r-inst {
+        font-family: $font-mono;
+        font-size: 0.75rem;
+        color: $silver-metal;
+      }
+    }
+
+    .r-desc {
+      font-family: $font-body;
+      font-size: 0.82rem;
+      color: $silver-light;
+      line-height: 1.45;
+      margin-bottom: 8px;
+    }
+
+    .r-skills {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 6px;
+
+      .r-tag {
+        font-family: $font-mono;
+        font-size: 0.65rem;
+        background: rgba(255, 255, 255, 0.05);
+        color: $silver-light;
+        padding: 2px 6px;
+        border-radius: 2px;
+      }
+    }
+  }
+}
+
+// CV Document Sheet
+.cv-actions-bar {
+  display: flex;
+  gap: 12px;
+  margin-bottom: 16px;
+
+  .print-cv-btn, .email-cv-btn {
+    @include cyber-button;
+    font-size: 0.75rem;
+    padding: 10px 18px;
+  }
+}
+
+.cv-document-sheet {
+  background: #ffffff;
+  color: #111827;
+  padding: 40px;
+  border-radius: 4px;
+  box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  line-height: 1.5;
+
+  .cv-header {
+    display: flex;
+    justify-content: space-between;
+    border-bottom: 2px solid #111827;
+    padding-bottom: 16px;
+    margin-bottom: 20px;
+
+    .cv-name {
+      font-size: 1.8rem;
+      font-weight: 800;
+      color: #0f172a;
+    }
+
+    .cv-title {
+      font-size: 1rem;
+      color: #0284c7;
+      font-weight: 600;
+    }
+
+    .cv-contacts {
+      font-size: 0.8rem;
+      color: #475569;
+      text-align: right;
+    }
+  }
+
+  .cv-section {
+    margin-bottom: 20px;
+
+    .cv-sec-title {
+      font-size: 0.9rem;
+      font-weight: 700;
+      color: #0f172a;
+      border-bottom: 1px solid #cbd5e1;
+      padding-bottom: 4px;
+      margin-bottom: 8px;
+      text-transform: uppercase;
+      letter-spacing: 0.05em;
+    }
+
+    p {
+      font-size: 0.85rem;
+      color: #334155;
+    }
+
+    .cv-skills-summary {
+      font-size: 0.85rem;
+      color: #334155;
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+
+    .cv-project-entry, .cv-timeline-entry {
+      margin-bottom: 10px;
+      font-size: 0.85rem;
+      color: #334155;
+    }
+  }
+}
+
+// Contact Tab
+.recruiter-contact-box {
+  background: rgba(10, 18, 36, 0.8);
+  border: 1px solid rgba(0, 240, 255, 0.2);
+  padding: 30px;
+  border-radius: 6px;
+
+  .contact-sub {
+    font-family: $font-body;
+    font-size: 0.95rem;
+    color: $silver-metal;
+    margin-bottom: 24px;
+  }
+
+  .contact-nodes-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+    gap: 16px;
+
+    .contact-node-card {
+      background: rgba(13, 24, 48, 0.8);
+      border: 1px solid rgba(0, 240, 255, 0.25);
+      padding: 18px;
+      border-radius: 6px;
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      transition: all $transition-fast;
+
+      &:hover {
+        background: rgba(0, 240, 255, 0.1);
+        border-color: $cyan-core;
+        transform: translateY(-2px);
+      }
+
+      .node-icon { font-size: 1.5rem; }
+
+      .node-info {
+        display: flex;
+        flex-direction: column;
+
+        .node-type {
+          font-family: $font-mono;
+          font-size: 0.65rem;
+          color: $silver-muted;
+          letter-spacing: 0.1em;
+        }
+
+        .node-val {
+          font-family: $font-mono;
+          font-size: 0.85rem;
+          color: $cyan-core;
+          font-weight: 600;
+        }
+      }
+    }
+  }
+}
+
+@media print {
+  .recruiter-navbar, .cv-actions-bar {
+    display: none !important;
+  }
+  .recruiter-container {
+    position: static;
+    background: #ffffff;
+    color: #000000;
+  }
+  .recruiter-main {
+    padding: 0;
+    margin: 0;
+    max-width: 100%;
+  }
+  .cv-document-sheet {
+    box-shadow: none;
+    padding: 0;
+  }
+}
+
+@media (max-width: 900px) {
+  .recruiter-navbar {
+    height: auto;
+    padding: 12px;
+    flex-direction: column;
+    gap: 10px;
+  }
+  .recruiter-tabs {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .overview-grid {
+    grid-template-columns: 1fr;
+  }
+  .recruiter-missions-list .recruiter-mission-row {
+    grid-template-columns: 1fr;
+  }
+}

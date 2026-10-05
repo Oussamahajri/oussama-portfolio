@@ -1,0 +1,14 @@
+@use '../styles/variables' as *;
+
+.portfolio-viewport {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  overflow: hidden;
+  background-color: $bg-void;
+
+  &.world-active {
+    background-color: transparent;
+  }
+}

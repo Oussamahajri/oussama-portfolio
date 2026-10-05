@@ -1,0 +1,25 @@
+<div class="world-canvas-container">
+  <canvas #webglCanvas class="webgl-canvas"></canvas>
+
+  <!-- 3D Node Hover Tooltip HUD -->
+  @if (hoveredNode(); as node) {
+    <div
+      class="node-tooltip"
+      [style.left.px]="tooltipPos().x + 18"
+      [style.top.px]="tooltipPos().y - 28">
+      <div class="tooltip-header">
+        <span class="tooltip-code">NODE // {{ node.iconText }}</span>
+        <span class="tooltip-ping">READY</span>
+      </div>
+      <div class="tooltip-label">{{ node.label }}</div>
+      <div class="tooltip-sub">{{ node.sublabel }}</div>
+      <div class="tooltip-cta">[CLICK OR TAP TO ENGAGE]</div>
+    </div>
+  }
+
+  <!-- Mobile Orbit Hint Overlay -->
+  <div class="touch-control-hint">
+    <span class="hint-icon">✥</span>
+    <span>DRAG TO ROTATE UNIVERSE</span>
+  </div>
+</div>

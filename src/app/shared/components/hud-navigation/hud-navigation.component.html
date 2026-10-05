@@ -1,0 +1,138 @@
+<!-- TOP HUD HEADER -->
+<header class="hud-header" role="banner">
+  <!-- Left Identity Brand / Core Glyph -->
+  <div class="hud-brand" (click)="onLogoClick()" (mouseenter)="audioService.playHover()" title="Click repeatedly to overcharge core">
+    <div class="brand-glyph">
+      <div class="glyph-ring"></div>
+      <div class="glyph-core"></div>
+    </div>
+    <div class="brand-text">
+      <div class="brand-title">
+        <span class="highlight">HAJRI</span> // DIGITAL IDENTITY
+      </div>
+      <div class="brand-telemetry">
+        <span class="status-indicator"></span>
+        <span class="telemetry-info">SYS: ONLINE · PING: 12ms · LOC: TN/GLOBAL</span>
+      </div>
+    </div>
+  </div>
+
+  <!-- Right Operational Controls -->
+  <div class="hud-controls" role="toolbar" aria-label="System operational controls">
+    <!-- Recruiter Mode Toggle -->
+    <button
+      class="hud-btn recruiter-btn"
+      [class.active]="stateService.recruiterMode()"
+      (click)="stateService.toggleRecruiterMode()"
+      (mouseenter)="audioService.playHover()"
+      aria-label="Toggle Recruiter Mode"
+      title="Toggle high-efficiency Recruiter dossier [R]">
+      <span class="btn-icon">📁</span>
+      <span class="btn-label">RECRUITER MODE</span>
+      <span class="key-tag">R</span>
+    </button>
+
+    <!-- Developer Mode Toggle -->
+    <button
+      class="hud-btn dev-btn"
+      [class.active]="stateService.developerMode()"
+      (click)="stateService.toggleDeveloperMode()"
+      (mouseenter)="audioService.playHover()"
+      aria-label="Toggle Developer Mode"
+      title="Inspect architecture, metrics & stack diagnostics [D]">
+      <span class="btn-icon">⚡</span>
+      <span class="btn-label">DEV MODE</span>
+      <span class="key-tag">D</span>
+    </button>
+
+    <!-- Secret Terminal Toggle -->
+    <button
+      class="hud-btn terminal-btn"
+      [class.active]="stateService.terminalOpen()"
+      (click)="stateService.toggleTerminal()"
+      (mouseenter)="audioService.playHover()"
+      aria-label="Open Secret Terminal"
+      title="Open CLI terminal [~]">
+      <span class="btn-icon">>_</span>
+      <span class="btn-label">TERMINAL</span>
+      <span class="key-tag">~</span>
+    </button>
+
+    <!-- Audio FX Toggle -->
+    <button
+      class="hud-btn audio-btn"
+      [class.active]="!audioService.isMuted()"
+      (click)="audioService.toggleMute()"
+      (mouseenter)="audioService.playHover()"
+      aria-label="Toggle Sound Effects"
+      [title]="audioService.isMuted() ? 'Audio FX: Muted (Click to enable) [M]' : 'Audio FX: Enabled [M]'">
+      <span class="btn-icon">{{ audioService.isMuted() ? '🔇' : '🔊' }}</span>
+      <span class="btn-label">{{ audioService.isMuted() ? 'FX: OFF' : 'FX: ON' }}</span>
+    </button>
+
+    <!-- Motion Preference Toggle -->
+    <button
+      class="hud-btn icon-only-btn"
+      [class.active]="stateService.reducedMotion()"
+      (click)="stateService.toggleReducedMotion()"
+      (mouseenter)="audioService.playHover()"
+      aria-label="Toggle Reduced Motion"
+      [title]="stateService.reducedMotion() ? 'Reduced motion active' : 'Full motion active'">
+      <span class="btn-icon">🌀</span>
+    </button>
+  </div>
+</header>
+
+<!-- BOTTOM TACTICAL COMMAND DOCK -->
+<nav class="hud-dock" role="navigation" aria-label="Spatial navigation dock">
+  <div class="dock-container">
+    <div class="dock-nodes">
+      @for (item of navItems; track item.id) {
+        <button
+          class="dock-item"
+          [class.active]="stateService.currentView() === item.id"
+          (click)="onNavigate(item.id)"
+          (mouseenter)="audioService.playHover()"
+          [attr.aria-label]="item.label">
+          <span class="item-code">{{ item.code }}</span>
+          <span class="item-label">{{ item.label }}</span>
+          <span class="item-indicator"></span>
+        </button>
+      }
+    </div>
+
+    <!-- Achievement Tracker Status -->
+    <div
+      class="dock-achievements"
+      (click)="onNavigate('identity')"
+      (mouseenter)="audioService.playHover()"
+      title="View unlocked achievements">
+      <span class="ach-icon">🏆</span>
+      <div class="ach-info">
+        <span class="ach-label">ACHIEVEMENTS</span>
+        <span class="ach-count">{{ achievementService.unlockedCount() }}/{{ achievementService.totalCount() }}</span>
+      </div>
+      <div class="ach-progress-ring">
+        <div
+          class="ring-fill"
+          [style.width.%]="(achievementService.unlockedCount() / achievementService.totalCount()) * 100">
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Keyboard Shortcuts Bar -->
+  <div class="hud-shortcuts-bar">
+    <span>[1-7] QUICK SELECT</span>
+    <span class="sep">·</span>
+    <span>[ESC] RETURN TO ORBIT</span>
+    <span class="sep">·</span>
+    <span>[R] RECRUITER</span>
+    <span class="sep">·</span>
+    <span>[D] DEV</span>
+    <span class="sep">·</span>
+    <span>[~] TERMINAL</span>
+    <span class="sep">·</span>
+    <span>[M] AUDIO FX</span>
+  </div>
+</nav>

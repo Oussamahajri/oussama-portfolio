@@ -1,0 +1,345 @@
+<div class="recruiter-container">
+  <!-- Top Navigation Header -->
+  <header class="recruiter-navbar">
+    <div class="brand-zone">
+      <span class="badge-recruiter">EXECUTIVE DOSSIER</span>
+      <h1 class="brand-name">OUSSAMA HAJRI</h1>
+      <span class="brand-role">// Full-Stack & IT Specialist</span>
+    </div>
+
+    <!-- Tab Selector -->
+    <nav class="recruiter-tabs">
+      <button
+        class="tab-btn"
+        [class.active]="activeTab() === 'overview'"
+        (click)="setTab('overview')"
+        (mouseenter)="audioService.playHover()">
+        OVERVIEW
+      </button>
+      <button
+        class="tab-btn"
+        [class.active]="activeTab() === 'skills'"
+        (click)="setTab('skills')"
+        (mouseenter)="audioService.playHover()">
+        SKILLS MATRIX
+      </button>
+      <button
+        class="tab-btn"
+        [class.active]="activeTab() === 'missions'"
+        (click)="setTab('missions')"
+        (mouseenter)="audioService.playHover()">
+        PROJECTS (MISSIONS)
+      </button>
+      <button
+        class="tab-btn"
+        [class.active]="activeTab() === 'timeline'"
+        (click)="setTab('timeline')"
+        (mouseenter)="audioService.playHover()">
+        EDUCATION & TIMELINE
+      </button>
+      <button
+        class="tab-btn"
+        [class.active]="activeTab() === 'cv'"
+        (click)="setTab('cv')"
+        (mouseenter)="audioService.playHover()">
+        CURRICULUM VITAE
+      </button>
+      <button
+        class="tab-btn"
+        [class.active]="activeTab() === 'contact'"
+        (click)="setTab('contact')"
+        (mouseenter)="audioService.playHover()">
+        CONTACT
+      </button>
+    </nav>
+
+    <div class="action-zone">
+      <button
+        class="btn-exit"
+        (click)="onExitRecruiter()"
+        (mouseenter)="audioService.playHover()">
+        RETURN TO 3D WORLD [ESC]
+      </button>
+    </div>
+  </header>
+
+  <!-- Main Scrollable Content -->
+  <main class="recruiter-main">
+    <!-- TAB 1: OVERVIEW -->
+    @if (activeTab() === 'overview') {
+      <div class="tab-pane animate-modal-in">
+        <div class="overview-grid">
+          <!-- Executive Summary Card -->
+          <div class="executive-card">
+            <h2 class="card-title">CANDIDATE PROFILE</h2>
+            <div class="candidate-header">
+              <div>
+                <h3 class="candidate-name">{{ profile.name }}</h3>
+                <div class="candidate-spec">{{ profile.field }} · {{ profile.role }}</div>
+                <div class="candidate-loc">Tunisia (Available for Local, Remote, & Relocation)</div>
+              </div>
+              <div class="status-pill">AVAILABLE FOR ROLES</div>
+            </div>
+
+            <p class="candidate-bio">{{ profile.bioSummary }}</p>
+
+            <div class="philosophy-box">
+              <span class="box-tag">CORE WORK ETHIC:</span>
+              <p>"{{ profile.corePhilosophy }}"</p>
+            </div>
+          </div>
+
+          <!-- Quick Metrics & Readiness -->
+          <div class="readiness-card">
+            <h2 class="card-title">EMPLOYMENT READINESS</h2>
+            <div class="readiness-items">
+              <div class="readiness-item">
+                <span class="item-label">DEGREE MILESTONE:</span>
+                <span class="item-value">Information Technology (PFE 2026)</span>
+              </div>
+              <div class="readiness-item">
+                <span class="item-label">TARGET ROLES:</span>
+                <span class="item-value">Full-Stack Developer / Frontend Engineer (Angular / React)</span>
+              </div>
+              <div class="readiness-item">
+                <span class="item-label">LANGUAGES:</span>
+                <span class="item-value">French (Professional), English (Professional), Arabic (Native)</span>
+              </div>
+              <div class="readiness-item">
+                <span class="item-label">START AVAILABILITY:</span>
+                <span class="item-value">Immediate for Internships / PFE / Junior Engineering</span>
+              </div>
+            </div>
+
+            <div class="quick-links">
+              <a [href]="'mailto:' + profile.email" class="primary-action-btn">
+                EMAIL DIRECT: {{ profile.email }}
+              </a>
+              <button class="secondary-action-btn" (click)="setTab('cv')">
+                VIEW PRINTABLE CV
+              </button>
+            </div>
+          </div>
+        </div>
+
+        <!-- Featured Projects Row -->
+        <section class="section-block">
+          <h2 class="block-title">FLAGSHIP PRODUCTION MISSIONS</h2>
+          <div class="featured-missions-grid">
+            @for (m of missions.slice(0, 3); track m.id) {
+              <div class="recruiter-mission-card" (click)="openMission(m.id)">
+                <div class="m-card-header">
+                  <span class="m-code">{{ m.code }}</span>
+                  <span class="m-cat">{{ m.category }}</span>
+                </div>
+                <h4 class="m-title">{{ m.title }}</h4>
+                <p class="m-sum">{{ m.summary }}</p>
+                <div class="m-stack">
+                  @for (t of m.technologies; track t) {
+                    <span class="t-pill">{{ t }}</span>
+                  }
+                </div>
+                <button class="m-link">[VIEW FULL BRIEFING]</button>
+              </div>
+            }
+          </div>
+        </section>
+      </div>
+    }
+
+    <!-- TAB 2: SKILLS MATRIX -->
+    @if (activeTab() === 'skills') {
+      <div class="tab-pane animate-modal-in">
+        <h2 class="pane-heading">TECHNICAL COMPETENCY BREAKDOWN</h2>
+        <div class="skills-recruiter-grid">
+          @for (s of skills; track s.id) {
+            <div class="recruiter-skill-item">
+              <div class="s-header">
+                <span class="s-name">{{ s.name }}</span>
+                <span class="s-level">{{ s.levelDisplay }} ({{ s.proficiencyRank }})</span>
+              </div>
+              <div class="s-track">
+                <div class="s-fill" [style.width.%]="s.level * 10"></div>
+              </div>
+              <p class="s-desc">{{ s.description }}</p>
+              <div class="s-meta">
+                <span class="s-cat">{{ s.categoryLabel }}</span>
+                <span class="s-years">{{ s.experienceYears }}</span>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    }
+
+    <!-- TAB 3: MISSIONS -->
+    @if (activeTab() === 'missions') {
+      <div class="tab-pane animate-modal-in">
+        <h2 class="pane-heading">ALL DEPLOYED PROJECTS // MISSIONS</h2>
+        <div class="recruiter-missions-list">
+          @for (m of missions; track m.id) {
+            <div class="recruiter-mission-row">
+              <div class="row-left">
+                <span class="m-code-tag">{{ m.code }} // {{ m.clearance }}</span>
+                <h3 class="m-row-title">{{ m.title }}</h3>
+                <div class="m-row-sub">{{ m.subtitle }}</div>
+                <div class="m-row-dates">Period: {{ m.dateRange }} · Status: {{ m.status }}</div>
+              </div>
+              <div class="row-center">
+                <p class="m-row-summary">{{ m.summary }}</p>
+                <div class="tech-inline">
+                  @for (t of m.technologies; track t) {
+                    <span class="tech-tag">{{ t }}</span>
+                  }
+                </div>
+              </div>
+              <div class="row-right">
+                <button class="briefing-action-btn" (click)="openMission(m.id)">
+                  INSPECT ARCHITECTURE
+                </button>
+                @if (m.githubUrl) {
+                  <a [href]="m.githubUrl" target="_blank" rel="noopener noreferrer" class="link-github">
+                    GitHub Code ↗
+                  </a>
+                }
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    }
+
+    <!-- TAB 4: TIMELINE -->
+    @if (activeTab() === 'timeline') {
+      <div class="tab-pane animate-modal-in">
+        <h2 class="pane-heading">EDUCATION & PROFESSIONAL TIMELINE</h2>
+        <div class="recruiter-timeline-list">
+          @for (ev of timeline; track ev.id) {
+            <div class="r-timeline-item">
+              <div class="r-year-column">
+                <span class="r-year">{{ ev.year }}</span>
+                <span class="r-period">{{ ev.period }}</span>
+              </div>
+              <div class="r-content-column">
+                <div class="r-top">
+                  <h3 class="r-title">{{ ev.title }}</h3>
+                  <span class="r-inst">{{ ev.institutionOrContext }}</span>
+                </div>
+                <p class="r-desc">{{ ev.description }}</p>
+                <div class="r-skills">
+                  @for (sk of ev.skillsAcquired; track sk) {
+                    <span class="r-tag">{{ sk }}</span>
+                  }
+                </div>
+              </div>
+            </div>
+          }
+        </div>
+      </div>
+    }
+
+    <!-- TAB 5: CV VIEW -->
+    @if (activeTab() === 'cv') {
+      <div class="tab-pane animate-modal-in">
+        <div class="cv-actions-bar">
+          <button class="print-cv-btn" (click)="triggerPrintCv()">
+            🖨️ PRINT / SAVE AS PDF
+          </button>
+          <a [href]="'mailto:' + profile.email" class="email-cv-btn">
+            REQUEST FORMAL CV VIA EMAIL
+          </a>
+        </div>
+
+        <div class="cv-document-sheet">
+          <header class="cv-header">
+            <div>
+              <h1 class="cv-name">{{ profile.name }}</h1>
+              <div class="cv-title">{{ profile.field }} Student · {{ profile.role }}</div>
+            </div>
+            <div class="cv-contacts">
+              <div>Email: {{ profile.email }}</div>
+              <div>Location: {{ profile.location }}</div>
+              <div>LinkedIn: linkedin.com/in/oussama-hajri</div>
+              <div>GitHub: github.com/oussama-hajri</div>
+            </div>
+          </header>
+
+          <section class="cv-section">
+            <h2 class="cv-sec-title">PROFESSIONAL SUMMARY</h2>
+            <p>{{ profile.bioSummary }}</p>
+          </section>
+
+          <section class="cv-section">
+            <h2 class="cv-sec-title">CORE SKILLS</h2>
+            <div class="cv-skills-summary">
+              <div><strong>Frontend:</strong> Angular, React, TypeScript, JavaScript (ES6+), HTML5, SCSS, Three.js, WebGL</div>
+              <div><strong>Backend:</strong> Node.js, Express.js, PHP, Laravel, RESTful APIs, JWT</div>
+              <div><strong>Databases:</strong> MySQL, MongoDB, Relational Schema Normalization, Aggregations</div>
+              <div><strong>Tools:</strong> Git, Postman, Docker Fundamentals, Webpack/Vite</div>
+            </div>
+          </section>
+
+          <section class="cv-section">
+            <h2 class="cv-sec-title">KEY PROJECTS</h2>
+            @for (m of missions; track m.id) {
+              <div class="cv-project-entry">
+                <div class="cv-proj-header">
+                  <strong>{{ m.title }}</strong> — <em>{{ m.technologies.join(', ') }}</em>
+                </div>
+                <div>{{ m.summary }}</div>
+              </div>
+            }
+          </section>
+
+          <section class="cv-section">
+            <h2 class="cv-sec-title">EDUCATION & EXPERIENCE</h2>
+            @for (ev of timeline; track ev.id) {
+              <div class="cv-timeline-entry">
+                <div class="cv-t-year"><strong>{{ ev.year }}</strong> — {{ ev.title }} ({{ ev.institutionOrContext }})</div>
+                <div>{{ ev.description }}</div>
+              </div>
+            }
+          </section>
+        </div>
+      </div>
+    }
+
+    <!-- TAB 6: CONTACT -->
+    @if (activeTab() === 'contact') {
+      <div class="tab-pane animate-modal-in">
+        <div class="recruiter-contact-box">
+          <h2 class="pane-heading">DIRECT RECRUITMENT CONTACT</h2>
+          <p class="contact-sub">
+            Oussama is available for internships, final graduation capstone (PFE 2026), and entry/junior full-stack engineering roles.
+          </p>
+
+          <div class="contact-nodes-grid">
+            <a [href]="'mailto:' + profile.email" class="contact-node-card">
+              <span class="node-icon">✉️</span>
+              <div class="node-info">
+                <span class="node-type">DIRECT EMAIL</span>
+                <span class="node-val">{{ profile.email }}</span>
+              </div>
+            </a>
+
+            <a href="https://linkedin.com/in/oussama-hajri" target="_blank" rel="noopener noreferrer" class="contact-node-card">
+              <span class="node-icon">💼</span>
+              <div class="node-info">
+                <span class="node-type">LINKEDIN PROFILE</span>
+                <span class="node-val">linkedin.com/in/oussama-hajri</span>
+              </div>
+            </a>
+
+            <a href="https://github.com/oussama-hajri" target="_blank" rel="noopener noreferrer" class="contact-node-card">
+              <span class="node-icon">🐙</span>
+              <div class="node-info">
+                <span class="node-type">GITHUB REPOSITORIES</span>
+                <span class="node-val">github.com/oussama-hajri</span>
+              </div>
+            </a>
+          </div>
+        </div>
+      </div>
+    }
+  </main>
+</div>

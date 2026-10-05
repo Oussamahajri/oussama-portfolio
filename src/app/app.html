@@ -1,0 +1,66 @@
+<div class="portfolio-viewport" [class.world-active]="stateService.currentView() !== 'entry'">
+  <!-- Cyber Scanline Effect Layer -->
+  <div class="cyber-scanlines" aria-hidden="true"></div>
+
+  <!-- ENTRY SEQUENCE (Cinematic Loader) -->
+  @if (stateService.currentView() === 'entry') {
+    <app-experience-loader></app-experience-loader>
+  }
+
+  <!-- 3D WORLD (PERSISTENT AFTER START) -->
+  @if (stateService.currentView() !== 'entry') {
+    <app-world-3d></app-world-3d>
+    <app-hud-navigation></app-hud-navigation>
+  }
+
+  <!-- ACHIEVEMENT UNLOCK NOTIFICATION TOAST -->
+  <app-achievement-toast></app-achievement-toast>
+
+  <!-- SECRET TERMINAL CONSOLE -->
+  @if (stateService.terminalOpen()) {
+    <app-secret-terminal></app-secret-terminal>
+  }
+
+  <!-- SPATIAL MODAL VIEWS -->
+  @switch (stateService.currentView()) {
+    @case ('identity') {
+      <app-identity-modal></app-identity-modal>
+    }
+    @case ('skills') {
+      <app-skills-view></app-skills-view>
+    }
+    @case ('missions') {
+      <app-missions-view></app-missions-view>
+    }
+    @case ('timeline') {
+      <app-timeline-view></app-timeline-view>
+    }
+    @case ('journey') {
+      <app-journey-view></app-journey-view>
+    }
+    @case ('ai') {
+      <app-ai-console></app-ai-console>
+    }
+    @case ('contact') {
+      <app-contact-modal></app-contact-modal>
+    }
+    @case ('future') {
+      <app-future-view></app-future-view>
+    }
+    @case ('recruiter') {
+      <app-recruiter-mode></app-recruiter-mode>
+    }
+    @case ('developer') {
+      <app-developer-mode></app-developer-mode>
+    }
+  }
+
+  <!-- EXTRA RECRUITER / DEV MODE OVERLAYS IF TOGGLED DIRECTLY -->
+  @if (stateService.recruiterMode() && stateService.currentView() !== 'recruiter') {
+    <app-recruiter-mode></app-recruiter-mode>
+  }
+
+  @if (stateService.developerMode() && stateService.currentView() !== 'developer') {
+    <app-developer-mode></app-developer-mode>
+  }
+</div>

@@ -1,0 +1,95 @@
+<div class="modal-backdrop" (click)="onClose()">
+  <div class="timeline-interface" (click)="$event.stopPropagation()">
+    <!-- Top Header -->
+    <div class="interface-header">
+      <div class="header-left">
+        <span class="hud-badge">MODULE // 04</span>
+        <h2 class="module-title">SPATIAL CHRONOLOGY // CAREER & EDUCATION</h2>
+      </div>
+      <button
+        class="close-btn"
+        (click)="onClose()"
+        (mouseenter)="audioService.playHover()"
+        aria-label="Close timeline view">
+        [ESC] ✕
+      </button>
+    </div>
+
+    <div class="timeline-layout">
+      <!-- Left: Interactive Chronological Node Pipeline -->
+      <div class="pipeline-track">
+        <div class="pipeline-line"></div>
+
+        @for (item of timeline; track item.id) {
+          <div
+            class="pipeline-node"
+            [class.active]="selectedEvent().id === item.id"
+            (click)="selectEvent(item)"
+            (mouseenter)="audioService.playHover()">
+            <!-- Spatial Marker Dot -->
+            <div class="marker-dot">
+              <span class="dot-inner"></span>
+            </div>
+
+            <!-- Content Card Preview -->
+            <div class="node-card">
+              <div class="node-meta">
+                <span class="node-year">{{ item.year }}</span>
+                <span class="node-period">// {{ item.period }}</span>
+                <span class="node-type" [class]="'type-' + item.milestoneType.toLowerCase()">
+                  {{ item.milestoneType }}
+                </span>
+              </div>
+              <h3 class="node-title">{{ item.title }}</h3>
+              <div class="node-inst">{{ item.institutionOrContext }}</div>
+            </div>
+          </div>
+        }
+      </div>
+
+      <!-- Right: Cinematic Milestone Detail Panel -->
+      @if (selectedEvent(); as ev) {
+        <div class="event-detail-panel">
+          <div class="panel-header">
+            <span class="telemetry-badge">{{ ev.telemetryCode }}</span>
+            <span class="status-badge" [class.completed]="ev.status === 'COMPLETED'">
+              {{ ev.status }}
+            </span>
+          </div>
+
+          <div class="panel-hero">
+            <span class="hero-year">{{ ev.year }} // {{ ev.period }}</span>
+            <h3 class="hero-title">{{ ev.title }}</h3>
+            <div class="hero-subtitle">{{ ev.subtitle }}</div>
+            <div class="hero-context">📍 {{ ev.institutionOrContext }}</div>
+          </div>
+
+          <p class="hero-desc">{{ ev.description }}</p>
+
+          <!-- Skills Acquired -->
+          <div class="section-box">
+            <div class="box-title">// COMPETENCIES ACQUIRED & REFINED</div>
+            <div class="tags-row">
+              @for (sk of ev.skillsAcquired; track sk) {
+                <span class="sk-tag">{{ sk }}</span>
+              }
+            </div>
+          </div>
+
+          <!-- Key Deliverables -->
+          <div class="section-box">
+            <div class="box-title">// KEY ARTIFACTS & DELIVERABLES</div>
+            <div class="deliverables-list">
+              @for (del of ev.keyDeliverables; track del) {
+                <div class="del-item">
+                  <span class="del-dot">◈</span>
+                  <span>{{ del }}</span>
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</div>

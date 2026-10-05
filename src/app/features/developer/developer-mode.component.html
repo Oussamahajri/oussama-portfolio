@@ -1,0 +1,212 @@
+<div class="developer-overlay" (click)="onClose()">
+  <div class="developer-panel" (click)="$event.stopPropagation()">
+    <!-- Top System Header -->
+    <div class="panel-header">
+      <div class="header-left">
+        <span class="hud-tag">DEV MODE // ARCHITECTURE INSPECTOR</span>
+        <h2 class="panel-title">SYSTEMS TOPOLOGY & STACK DIAGNOSTICS</h2>
+      </div>
+      <button
+        class="close-btn"
+        (click)="onClose()"
+        (mouseenter)="audioService.playHover()"
+        aria-label="Close developer mode">
+        [ESC] ✕
+      </button>
+    </div>
+
+    <!-- Live Performance Telemetry Strip -->
+    <div class="telemetry-strip">
+      <div class="telemetry-node">
+        <span class="t-label">CLIENT RUNTIME</span>
+        <span class="t-val">Angular 21 + Vite</span>
+      </div>
+      <div class="telemetry-node">
+        <span class="t-label">3D PIPELINE</span>
+        <span class="t-val">Three.js r174 (WebGL2)</span>
+      </div>
+      <div class="telemetry-node">
+        <span class="t-label">STATE PARADIGM</span>
+        <span class="t-val">Signals & RxJS 7.8</span>
+      </div>
+      <div class="telemetry-node">
+        <span class="t-label">AUDIO ENGINE</span>
+        <span class="t-val">Web Audio API Synth</span>
+      </div>
+      <div class="telemetry-node">
+        <span class="t-label">DOM MEMORY STATUS</span>
+        <span class="t-val green">OPTIMAL (0 LEAKS)</span>
+      </div>
+    </div>
+
+    <!-- Main Architecture Layout -->
+    <div class="architecture-layout">
+      <!-- Left: Layer Selector Pipeline -->
+      <div class="layer-selector-column">
+        @for (lay of layers; track lay.id) {
+          <button
+            class="layer-item-btn"
+            [class.active]="selectedLayer() === lay.id"
+            (click)="setLayer(lay.id)"
+            (mouseenter)="audioService.playHover()">
+            <span class="layer-code">SYS-0{{ $index + 1 }}</span>
+            <span class="layer-name">{{ lay.name }}</span>
+          </button>
+        }
+      </div>
+
+      <!-- Right: Interactive Architectural Schematics -->
+      <div class="schematic-view-column">
+        <!-- LAYER 1: FRONTEND -->
+        @if (selectedLayer() === 'frontend') {
+          <div class="schematic-pane animate-modal-in">
+            <h3 class="pane-title">// FRONTEND REACTIVE ARCHITECTURE</h3>
+            <div class="circuit-cards">
+              <div class="circuit-card">
+                <div class="c-title">Angular Standalone & Signals</div>
+                <p class="c-text">
+                  Fine-grained reactivity with zero zone pollution where needed. Angular Signals trigger precision micro-render cycles without full component tree dirty checks.
+                </p>
+                <div class="c-spec">Pattern: Component-Driven Architecture · Lazy Routing</div>
+              </div>
+
+              <div class="circuit-card">
+                <div class="c-title">React Ecosystem & Custom Hooks</div>
+                <p class="c-text">
+                  Isolated UI states decoupled from side-effects using custom hooks, Context API, and modular functional composition.
+                </p>
+                <div class="c-spec">Pattern: Hooks Factory · Reducer State · Immutability</div>
+              </div>
+
+              <div class="circuit-card">
+                <div class="c-title">TypeScript Strict Contract Layer</div>
+                <p class="c-text">
+                  Strict null checks, generic utility types, and exhaustiveness guards ensuring end-to-end type safety between data providers and presentation components.
+                </p>
+                <div class="c-spec">Pattern: Generics · Discriminated Unions · Type Guards</div>
+              </div>
+            </div>
+
+            <!-- Code Sample Terminal -->
+            <div class="code-terminal">
+              <div class="code-head">TypeScript // Reactive Signal Pattern</div>
+              <pre><code>readonly activeMission = computed(() => &#123;
+  const missionId = this.stateService.selectedMissionId();
+  return this.portfolioData.getMissionById(missionId);
+&#125;);</code></pre>
+            </div>
+          </div>
+        }
+
+        <!-- LAYER 2: BACKEND -->
+        @if (selectedLayer() === 'backend') {
+          <div class="schematic-pane animate-modal-in">
+            <h3 class="pane-title">// BACKEND RUNTIME & REST APIS</h3>
+            <div class="circuit-cards">
+              <div class="circuit-card">
+                <div class="c-title">Node.js & Express Pipeline</div>
+                <p class="c-text">
+                  Event-driven non-blocking I/O. Middleware chains for JWT verification, rate limiting, payload sanitization, and structured error handling.
+                </p>
+                <div class="c-spec">Stack: Express · JSON Web Tokens · CORS · Joi Validation</div>
+              </div>
+
+              <div class="circuit-card">
+                <div class="c-title">PHP & Laravel Service Layer</div>
+                <p class="c-text">
+                  Eloquent ORM repository abstractions, API resources, database migrations, and clean separation between controllers and business logic.
+                </p>
+                <div class="c-spec">Stack: Laravel 11 · Artisan CLI · Resource Controllers</div>
+              </div>
+            </div>
+
+            <div class="code-terminal">
+              <div class="code-head">REST Middleware // JWT Verification</div>
+              <pre><code>export const authenticateToken = (req, res, next) => &#123;
+  const token = req.headers['authorization']?.split(' ')[1];
+  if (!token) return res.status(401).json(&#123; error: 'UNAUTHORIZED_ACCESS' &#125;);
+  jwt.verify(token, process.env.JWT_SECRET, (err, user) => &#123;
+    if (err) return res.status(403).json(&#123; error: 'TOKEN_EXPIRED' &#125;);
+    req.user = user;
+    next();
+  &#125;);
+&#125;;</code></pre>
+            </div>
+          </div>
+        }
+
+        <!-- LAYER 3: DATABASE -->
+        @if (selectedLayer() === 'database') {
+          <div class="schematic-pane animate-modal-in">
+            <h3 class="pane-title">// DATA PERSISTENCE & INDEXING</h3>
+            <div class="circuit-cards">
+              <div class="circuit-card">
+                <div class="c-title">MySQL Relational Schemas</div>
+                <p class="c-text">
+                  3rd Normal Form (3NF) relational tables, foreign key constraints, composite B-Tree indexes, and ACID transaction safety.
+                </p>
+                <div class="c-spec">Focus: Query Profiling · EXPLAIN ANALYZE · Join Optimization</div>
+              </div>
+
+              <div class="circuit-card">
+                <div class="c-title">MongoDB Document Modeling</div>
+                <p class="c-text">
+                  Flexible document schemas, embedded vs referenced design, Mongoose pre/post hooks, and aggregation pipelines ($match, $group, $lookup).
+                </p>
+                <div class="c-spec">Focus: Aggregations · Indexing Strategies · Atomic Updates</div>
+              </div>
+            </div>
+          </div>
+        }
+
+        <!-- LAYER 4: 3D WEBGL -->
+        @if (selectedLayer() === '3d-webgl') {
+          <div class="schematic-pane animate-modal-in">
+            <h3 class="pane-title">// 3D GRAPHICS & THREE.JS ENGINE</h3>
+            <div class="circuit-cards">
+              <div class="circuit-card">
+                <div class="c-title">Three.js Scene Graph & Raycasting</div>
+                <p class="c-text">
+                  Normalized device coordinates raycasting, spatial node matrix transforms, procedural lighting, and starfield particle engines.
+                </p>
+                <div class="c-spec">Target: 60 FPS Stability · Geometry & Material Disposal</div>
+              </div>
+
+              <div class="circuit-card">
+                <div class="c-title">Procedural Web Audio Engine</div>
+                <p class="c-text">
+                  AudioContext oscillator nodes, biquad filter sweeps, and exponential gain ramps synthesizing real-time high-tech sound effects with zero audio file downloads.
+                </p>
+                <div class="c-spec">Tech: Web Audio API · Zero External MP3 Dependency</div>
+              </div>
+            </div>
+          </div>
+        }
+
+        <!-- LAYER 5: DEVOPS -->
+        @if (selectedLayer() === 'devops') {
+          <div class="schematic-pane animate-modal-in">
+            <h3 class="pane-title">// TOOLCHAIN & ENVIRONMENT</h3>
+            <div class="circuit-cards">
+              <div class="circuit-card">
+                <div class="c-title">Git Branching & Code Standards</div>
+                <p class="c-text">
+                  Feature branches, atomic commits, pull request peer reviews, and ESLint / Prettier code style enforcement.
+                </p>
+                <div class="c-spec">Workflow: Git Flow · Conventional Commits</div>
+              </div>
+
+              <div class="circuit-card">
+                <div class="c-title">Docker & Containerization</div>
+                <p class="c-text">
+                  Containerized multi-stage builds, environment isolation, and reproducible development runtimes.
+                </p>
+                <div class="c-spec">Workflow: Dockerfile · Compose · Alpine Base Images</div>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>

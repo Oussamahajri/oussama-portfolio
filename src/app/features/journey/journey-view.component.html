@@ -1,0 +1,129 @@
+<div class="modal-backdrop" (click)="onClose()">
+  <div class="journey-interface" (click)="$event.stopPropagation()">
+    <!-- Top Header -->
+    <div class="interface-header">
+      <div class="header-left">
+        <span class="hud-badge">MODULE // 05</span>
+        <h2 class="module-title">RESILIENCE & EVOLUTION // THE JOURNEY</h2>
+      </div>
+      <button
+        class="close-btn"
+        (click)="onClose()"
+        (mouseenter)="audioService.playHover()"
+        aria-label="Close journey view">
+        [ESC] ✕
+      </button>
+    </div>
+
+    <!-- Progression Game Loop Banner -->
+    <div class="progression-loop-strip">
+      <div class="loop-step step-bug">
+        <span class="loop-icon">⚠️</span>
+        <span class="loop-label">BUG FOUND</span>
+      </div>
+      <span class="loop-arrow">→</span>
+      <div class="loop-step step-debug">
+        <span class="loop-icon">🔍</span>
+        <span class="loop-label">DEBUGGING</span>
+      </div>
+      <span class="loop-arrow">→</span>
+      <div class="loop-step step-lesson">
+        <span class="loop-icon">💡</span>
+        <span class="loop-label">LESSON LEARNED</span>
+      </div>
+      <span class="loop-arrow">→</span>
+      <div class="loop-step step-skill">
+        <span class="loop-icon">⚡</span>
+        <span class="loop-label">SKILL INCREASED</span>
+      </div>
+      <span class="loop-arrow">→</span>
+      <div class="loop-step step-level">
+        <span class="loop-icon">🏆</span>
+        <span class="loop-label">NEXT LEVEL</span>
+      </div>
+    </div>
+
+    <!-- Main Content Area -->
+    <div class="journey-layout">
+      <!-- Left Stage Selectors -->
+      <div class="stages-list">
+        @for (st of stages; track st.id) {
+          <div
+            class="stage-card"
+            [class.active]="activeStage().id === st.id"
+            (click)="selectStage(st)"
+            (mouseenter)="audioService.playHover()">
+            <div class="stage-top">
+              <span class="stage-code">STAGE 0{{ st.levelIndex }}</span>
+              <span class="stage-resilience">{{ st.resilienceRating }}</span>
+            </div>
+            <h4 class="stage-title">{{ st.stageName }}</h4>
+            <div class="stage-theme">{{ st.theme }}</div>
+          </div>
+        }
+      </div>
+
+      <!-- Right Cinematic Breakdown -->
+      @if (activeStage(); as curr) {
+        <div class="stage-detail-panel">
+          <div class="panel-header">
+            <span class="badge-stage">CASE BREAKDOWN // 0{{ curr.levelIndex }}</span>
+            <span class="rating-badge">{{ curr.resilienceRating }}</span>
+          </div>
+
+          <h3 class="breakdown-title">{{ curr.stageName }}</h3>
+          <div class="breakdown-theme">{{ curr.theme }}</div>
+
+          <!-- The Bug / Obstacle -->
+          <div class="card-step bug-section">
+            <div class="step-head">
+              <span class="step-bullet red">◈</span>
+              <span class="step-title">01. THE OBSTACLE / BUG ENCOUNTERED</span>
+            </div>
+            <p class="step-body">{{ curr.bugOrObstacle }}</p>
+            <div class="step-context">CONTEXT: {{ curr.technicalContext }}</div>
+          </div>
+
+          <!-- Debugging Actions -->
+          <div class="card-step debug-section">
+            <div class="step-head">
+              <span class="step-bullet blue">◈</span>
+              <span class="step-title">02. SYSTEMATIC DEBUGGING STRATEGY</span>
+            </div>
+            <ul class="debug-list">
+              @for (strategy of curr.debuggingStrategy; track strategy) {
+                <li>{{ strategy }}</li>
+              }
+            </ul>
+          </div>
+
+          <!-- Lesson & Breakthrough -->
+          <div class="card-step lesson-section">
+            <div class="step-head">
+              <span class="step-bullet green">◈</span>
+              <span class="step-title">03. BREAKTHROUGH & ARCHITECTURAL LESSON</span>
+            </div>
+            <p class="step-body highlight-quote">"{{ curr.breakthroughInsight }}"</p>
+            <p class="step-body sub">{{ curr.lessonLearned }}</p>
+          </div>
+
+          <!-- Skill Increase Telemetry -->
+          <div class="card-step stats-section">
+            <div class="step-head">
+              <span class="step-bullet yellow">◈</span>
+              <span class="step-title">04. PERMANENT ATTRIBUTE GROWTH</span>
+            </div>
+            <div class="growth-chips">
+              @for (gain of curr.skillsIncreased; track gain.skill) {
+                <div class="gain-chip">
+                  <span class="gain-skill">{{ gain.skill }}</span>
+                  <span class="gain-value">{{ gain.gain }}</span>
+                </div>
+              }
+            </div>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</div>

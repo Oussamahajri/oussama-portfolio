@@ -1,0 +1,80 @@
+@use './styles/variables' as *;
+@use './styles/typography' as *;
+@use './styles/animations' as *;
+@use './styles/mixins' as *;
+
+*, *::before, *::after {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+html, body {
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+  background-color: $bg-void;
+  color: $silver-light;
+  font-family: $font-body;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  user-select: none;
+}
+
+body.cyber-theme {
+  background-color: $bg-void;
+}
+
+body.overclock-active {
+  --cyan-core: #{$matrix-green};
+  --cyan-glow: rgba(0, 255, 102, 0.4);
+  --border-cyber: rgba(0, 255, 102, 0.4);
+  --border-cyber-bright: rgba(0, 255, 102, 0.8);
+  filter: hue-rotate(90deg) contrast(1.08);
+}
+
+a {
+  color: $cyan-core;
+  text-decoration: none;
+  transition: color $transition-fast;
+
+  &:hover {
+    color: #ffffff;
+    text-shadow: 0 0 8px $cyan-core;
+  }
+}
+
+button {
+  font-family: inherit;
+  border: none;
+  background: none;
+}
+
+// Global modal animation helper
+.animate-modal-in {
+  animation: modalFadeIn 0.35s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+// Global cyber scanline overlay
+.cyber-scanlines {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  pointer-events: none;
+  z-index: 9999;
+  background: linear-gradient(
+    rgba(18, 16, 16, 0) 50%,
+    rgba(0, 0, 0, 0.25) 50%
+  );
+  background-size: 100% 4px;
+  opacity: 0.35;
+}
+
+// Reduced motion preferences
+body.reduced-motion * {
+  animation-duration: 0.001s !important;
+  animation-iteration-count: 1 !important;
+  transition-duration: 0.001s !important;
+}

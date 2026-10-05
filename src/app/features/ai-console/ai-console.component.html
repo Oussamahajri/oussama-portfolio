@@ -1,0 +1,126 @@
+<div class="modal-backdrop" (click)="onClose()">
+  <div class="ai-terminal-window" (click)="$event.stopPropagation()">
+    <!-- Terminal Header -->
+    <div class="terminal-top-bar">
+      <div class="bar-left">
+        <div class="ai-core-glyph">
+          <span class="glyph-dot"></span>
+        </div>
+        <div>
+          <h2 class="ai-title">AI // OUSSAMA</h2>
+          <div class="ai-status">NEURAL KNOWLEDGE CORE · ONLINE</div>
+        </div>
+      </div>
+
+      <div class="bar-right">
+        <button
+          class="util-btn"
+          (click)="clearChat()"
+          (mouseenter)="audioService.playHover()"
+          title="Clear conversational memory">
+          CLEAR MEMORY
+        </button>
+        <button
+          class="close-btn"
+          (click)="onClose()"
+          (mouseenter)="audioService.playHover()"
+          aria-label="Close AI console">
+          [ESC] ✕
+        </button>
+      </div>
+    </div>
+
+    <!-- Suggested Query Chips Bar -->
+    <div class="prompt-chips-bar">
+      <span class="chips-label">SUGGESTED QUERIES:</span>
+      <div class="chips-scroll">
+        @for (chip of aiService.quickPrompts; track chip.id) {
+          <button
+            class="query-chip"
+            (click)="usePromptChip(chip.query)"
+            (mouseenter)="audioService.playHover()">
+            {{ chip.label }}
+          </button>
+        }
+      </div>
+    </div>
+
+    <!-- Chat Messages Stream -->
+    <div class="messages-container">
+      @for (msg of aiService.messages(); track msg.id) {
+        <div class="message-bubble-row" [class]="'sender-' + msg.sender">
+          <div class="avatar-cell">
+            <span class="avatar-tag">{{ msg.sender === 'user' ? 'YOU' : 'AI' }}</span>
+          </div>
+
+          <div class="bubble-content">
+            <div class="message-meta">
+              <span class="sender-name">{{ msg.sender === 'user' ? 'GUEST RECRUITER' : 'AI // OUSSAMA' }}</span>
+              <span class="msg-time">{{ msg.timestamp }}</span>
+            </div>
+
+            <!-- Message Text Content -->
+            <div class="message-text" [innerHTML]="msg.content"></div>
+
+            <!-- Optional Code Snippet -->
+            @if (msg.codeSnippet) {
+              <div class="code-block">
+                <pre><code>{{ msg.codeSnippet }}</code></pre>
+              </div>
+            }
+
+            <!-- Suggested Followups -->
+            @if (msg.tags && msg.tags.length > 0) {
+              <div class="followup-chips">
+                <span class="followup-label">SUGGESTED NEXT:</span>
+                @for (follow of msg.tags; track follow) {
+                  <button
+                    class="follow-chip"
+                    (click)="usePromptChip(follow)"
+                    (mouseenter)="audioService.playHover()">
+                    {{ follow }}
+                  </button>
+                }
+              </div>
+            }
+          </div>
+        </div>
+      }
+
+      @if (aiService.isThinking()) {
+        <div class="thinking-row">
+          <span class="thinking-dot"></span>
+          <span class="thinking-dot"></span>
+          <span class="thinking-dot"></span>
+          <span class="thinking-text">NEURAL INFERENCE IN PROGRESS...</span>
+        </div>
+      }
+
+      <div #chatBottom></div>
+    </div>
+
+    <!-- Input Footer Bar -->
+    <div class="chat-input-bar">
+      <div class="input-wrap">
+        <span class="input-glyph">></span>
+        <input
+          #queryInput
+          type="text"
+          class="chat-input"
+          [value]="userPrompt()"
+          (input)="userPrompt.set($any($event.target).value)"
+          (keydown)="onKeyDown($event)"
+          placeholder="Ask AI Oussama anything (e.g. 'What makes him different?', 'Why hire him?')..."
+          autocomplete="off" />
+      </div>
+
+      <button
+        class="send-btn"
+        [disabled]="!userPrompt().trim() || aiService.isThinking()"
+        (click)="submitPrompt()"
+        (mouseenter)="audioService.playHover()">
+        TRANSMIT [ENTER]
+      </button>
+    </div>
+  </div>
+</div>

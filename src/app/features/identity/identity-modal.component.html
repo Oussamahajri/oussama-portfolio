@@ -1,0 +1,142 @@
+<div class="modal-backdrop" (click)="onClose()">
+  <div class="identity-dossier" (click)="$event.stopPropagation()">
+    <!-- Top Cyber Header -->
+    <div class="dossier-header">
+      <div class="header-tag">
+        <span class="pulse-point"></span>
+        <span>SECURITY LEVEL: 04 // OPERATIONAL DOSSIER</span>
+      </div>
+      <button
+        class="close-btn"
+        (click)="onClose()"
+        (mouseenter)="audioService.playHover()"
+        aria-label="Close dossier">
+        [ESC] ✕
+      </button>
+    </div>
+
+    <!-- Main Content Layout -->
+    <div class="dossier-content">
+      <!-- Left Column: Holographic Avatar & Vital Stats -->
+      <div class="dossier-sidebar">
+        <div class="avatar-holo-wrap">
+          <div class="holo-scanline"></div>
+          <div class="avatar-box">
+            <span class="avatar-glyph">OH</span>
+          </div>
+          <div class="avatar-status">
+            <span class="status-indicator"></span>
+            <span>SYSTEMS CALIBRATED</span>
+          </div>
+        </div>
+
+        <div class="stats-grid">
+          @for (st of profile.stats; track st.label) {
+            <div class="stat-card">
+              <span class="stat-label">{{ st.label }}</span>
+              <span class="stat-val">{{ st.value }}</span>
+              <span class="stat-detail">{{ st.detail }}</span>
+            </div>
+          }
+        </div>
+
+        <div class="sidebar-contact-card">
+          <div class="card-label">DIRECT FREQUENCY</div>
+          <a class="email-link" [href]="'mailto:' + profile.email">
+            {{ profile.email }}
+          </a>
+          <div class="location-badge">📍 {{ profile.location }}</div>
+        </div>
+      </div>
+
+      <!-- Right Column: Profile Narrative, Philosophy & Modules -->
+      <div class="dossier-main">
+        <div class="identity-lead">
+          <span class="identity-code">HAJRI // 0xIT-ENG</span>
+          <h1 class="identity-name">{{ profile.name }}</h1>
+          <h2 class="identity-role">{{ profile.role }}</h2>
+          <p class="identity-summary">{{ profile.bioSummary }}</p>
+        </div>
+
+        <!-- Core Engineering Philosophy -->
+        <div class="philosophy-section">
+          <div class="section-title">
+            <span class="slash">//</span> CORE ENGINEERING PHILOSOPHY
+          </div>
+          <blockquote class="philosophy-quote">
+            "{{ profile.corePhilosophy }}"
+          </blockquote>
+        </div>
+
+        <!-- Core Focus Vectors -->
+        <div class="interests-section">
+          <div class="section-title">
+            <span class="slash">//</span> ARCHITECTURAL VECTORS
+          </div>
+          <div class="vector-tags">
+            @for (interest of profile.interests; track interest) {
+              <div class="vector-tag">
+                <span class="tag-bullet">◈</span>
+                <span>{{ interest }}</span>
+              </div>
+            }
+          </div>
+        </div>
+
+        <!-- Achievement Roster Mini-View -->
+        <div class="achievements-section">
+          <div class="section-header">
+            <div class="section-title">
+              <span class="slash">//</span> REPUTATION & ACHIEVEMENTS
+            </div>
+            <div class="ach-summary">
+              UNLOCKED: {{ achievementService.unlockedCount() }} / {{ achievementService.totalCount() }} ({{ achievementService.totalXp() }} XP)
+            </div>
+          </div>
+
+          <div class="achievements-mini-grid">
+            @for (ach of achievementService.achievements(); track ach.id) {
+              <div class="ach-mini-card" [class.unlocked]="ach.unlocked">
+                <span class="mini-status">{{ ach.unlocked ? '✓ UNLOCKED' : '🔒 LOCKED' }}</span>
+                <span class="mini-title">{{ ach.title }}</span>
+                <span class="mini-xp">{{ ach.xp }} XP</span>
+              </div>
+            }
+          </div>
+        </div>
+
+        <!-- Quick Jump Action Row -->
+        <div class="action-footer">
+          <button
+            class="action-btn"
+            (click)="jumpTo('missions')"
+            (mouseenter)="audioService.playHover()">
+            <span>EXPLORE MISSIONS</span>
+            <span class="btn-arrow">→</span>
+          </button>
+          <button
+            class="action-btn"
+            (click)="jumpTo('skills')"
+            (mouseenter)="audioService.playHover()">
+            <span>SKILL LEVELS</span>
+            <span class="btn-arrow">→</span>
+          </button>
+          <button
+            class="action-btn"
+            (click)="jumpTo('ai')"
+            (mouseenter)="audioService.playHover()">
+            <span>INTERROGATE AI</span>
+            <span class="btn-arrow">→</span>
+          </button>
+          <button
+            class="action-btn highlight"
+            (click)="jumpTo('contact')"
+            (mouseenter)="audioService.playHover()">
+            <span>CONNECT</span>
+            <span class="btn-arrow">→</span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

@@ -1,0 +1,80 @@
+<div class="modal-backdrop" (click)="onClose()">
+  <div class="missions-interface" (click)="$event.stopPropagation()">
+    <!-- Top Header -->
+    <div class="interface-header">
+      <div class="header-left">
+        <span class="hud-badge">MODULE // 03</span>
+        <h2 class="module-title">TACTICAL OPERATIONS // MISSIONS DECK</h2>
+      </div>
+      <button
+        class="close-btn"
+        (click)="onClose()"
+        (mouseenter)="audioService.playHover()"
+        aria-label="Close missions deck">
+        [ESC] ✕
+      </button>
+    </div>
+
+    <!-- Missions Deck Grid -->
+    <div class="missions-grid-container">
+      <div class="deck-lead">
+        <p class="lead-text">
+          Software projects re-imagined as strategic engineering deployments. Each mission represents a solved real-world challenge with verified architectures.
+        </p>
+        <span class="active-count">5 ACTIVE MISSION PROTOCOLS</span>
+      </div>
+
+      <div class="missions-roster">
+        @for (m of missions; track m.id) {
+          <article
+            class="mission-tactical-card"
+            (click)="openBriefing(m.id)"
+            (mouseenter)="audioService.playHover()"
+            [attr.aria-label]="m.title">
+            <!-- Card Corner Accents -->
+            <div class="corner-tr"></div>
+            <div class="corner-bl"></div>
+
+            <div class="card-header-bar">
+              <span class="card-mission-code">{{ m.code }}</span>
+              <span class="card-status-badge" [class.completed]="m.status === 'COMPLETED'">
+                <span class="beacon"></span>
+                {{ m.status }}
+              </span>
+            </div>
+
+            <div class="card-core">
+              <div class="mission-codename">{{ m.codename }}</div>
+              <h3 class="mission-name">{{ m.title }}</h3>
+              <p class="mission-desc">{{ m.subtitle }}</p>
+            </div>
+
+            <!-- Primary Tech & Stack Bar -->
+            <div class="stack-strip">
+              <span class="stack-label">STACK:</span>
+              <div class="tech-pills">
+                @for (t of m.technologies.slice(0, 4); track t) {
+                  <span class="pill">{{ t }}</span>
+                }
+              </div>
+            </div>
+
+            <!-- Card Footer -->
+            <div class="card-footer">
+              <span class="clearance-level">CLEARANCE: {{ m.clearance }}</span>
+              <div class="launch-prompt">
+                <span>BRIEFING</span>
+                <span class="arrow">→</span>
+              </div>
+            </div>
+          </article>
+        }
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Detailed Mission Briefing Modal -->
+@if (activeMission(); as m) {
+  <app-mission-briefing [mission]="m"></app-mission-briefing>
+}

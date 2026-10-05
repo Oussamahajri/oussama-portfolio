@@ -1,0 +1,146 @@
+<div class="modal-backdrop" (click)="onClose()">
+  <div class="contact-interface" (click)="$event.stopPropagation()">
+    <!-- Top Header -->
+    <div class="interface-header">
+      <div class="header-left">
+        <span class="hud-badge">MODULE // 07</span>
+        <h2 class="module-title">COMMUNICATION FREQUENCIES // CONNECT</h2>
+      </div>
+      <button
+        class="close-btn"
+        (click)="onClose()"
+        (mouseenter)="audioService.playHover()"
+        aria-label="Close contact modal">
+        [ESC] ✕
+      </button>
+    </div>
+
+    <div class="contact-body">
+      <!-- Title Lead -->
+      <div class="contact-lead">
+        <div class="lead-tag">DIRECT DATA LINK</div>
+        <h1 class="lead-title">CONNECT WITH OUSSAMA</h1>
+        <p class="lead-sub">
+          Establish direct synchronization. Open for software engineering internships, capstone project (PFE 2026), and full-stack engineering roles.
+        </p>
+      </div>
+
+      <!-- Animated Connection Frequency Nodes -->
+      <div class="nodes-deck">
+        <!-- Node 1: Direct Email -->
+        <div class="freq-node-card" (mouseenter)="audioService.playHover()">
+          <div class="node-corner-accent"></div>
+          <div class="node-icon-box email-icon">
+            <span>✉</span>
+          </div>
+          <div class="node-meta">
+            <span class="node-type">PRIMARY TRANSMISSION // EMAIL</span>
+            <span class="node-target">{{ profile.email }}</span>
+            <span class="node-hint">Direct inbox response time: &lt; 24h</span>
+          </div>
+          <div class="node-actions">
+            <button class="node-btn copy-btn" (click)="copyEmail()">
+              {{ copied() ? '✓ COPIED' : 'COPY EMAIL' }}
+            </button>
+            <a [href]="'mailto:' + profile.email" class="node-btn launch-btn">
+              LAUNCH CLIENT ↗
+            </a>
+          </div>
+        </div>
+
+        <!-- Node 2: LinkedIn -->
+        <a
+          href="https://linkedin.com/in/oussama-hajri"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="freq-node-card"
+          (mouseenter)="audioService.playHover()">
+          <div class="node-corner-accent"></div>
+          <div class="node-icon-box linkedin-icon">
+            <span>in</span>
+          </div>
+          <div class="node-meta">
+            <span class="node-type">PROFESSIONAL NETWORK // LINKEDIN</span>
+            <span class="node-target">linkedin.com/in/oussama-hajri</span>
+            <span class="node-hint">Professional recommendations & endorsements</span>
+          </div>
+          <div class="node-actions">
+            <span class="node-btn launch-btn">CONNECT PROFILE ↗</span>
+          </div>
+        </a>
+
+        <!-- Node 3: GitHub -->
+        <a
+          href="https://github.com/oussama-hajri"
+          target="_blank"
+          rel="noopener noreferrer"
+          class="freq-node-card"
+          (mouseenter)="audioService.playHover()">
+          <div class="node-corner-accent"></div>
+          <div class="node-icon-box github-icon">
+            <span>🐙</span>
+          </div>
+          <div class="node-meta">
+            <span class="node-type">CODE REPOSITORY // GITHUB</span>
+            <span class="node-target">github.com/oussama-hajri</span>
+            <span class="node-hint">Verified commits, source trees & open-source activity</span>
+          </div>
+          <div class="node-actions">
+            <span class="node-btn launch-btn">INSPECT CODE ↗</span>
+          </div>
+        </a>
+      </div>
+
+      <!-- Quick Message Transmission Packet -->
+      <div class="transmission-packet-box">
+        <div class="packet-header">
+          <span class="packet-tag">// TRANSMIT DIRECT DATA PACKET</span>
+          <span class="encryption-tag">AES-256 ENCRYPTED FORM</span>
+        </div>
+
+        <div class="packet-form">
+          <div class="form-row">
+            <div class="input-group">
+              <label>YOUR NAME / ORGANIZATION</label>
+              <input
+                type="text"
+                [value]="senderName()"
+                (input)="senderName.set($any($event.target).value)"
+                placeholder="e.g. Elena Vance / TechCorp" />
+            </div>
+
+            <div class="input-group">
+              <label>YOUR CONTACT FREQUENCY (EMAIL)</label>
+              <input
+                type="email"
+                [value]="senderEmail()"
+                (input)="senderEmail.set($any($event.target).value)"
+                placeholder="e.g. recruiter@company.com" />
+            </div>
+          </div>
+
+          <div class="input-group">
+            <label>MESSAGE / OPPORTUNITY DETAILS</label>
+            <textarea
+              rows="3"
+              [value]="senderMessage()"
+              (input)="senderMessage.set($any($event.target).value)"
+              placeholder="Describe your project, internship, or role opportunity..."></textarea>
+          </div>
+
+          <div class="form-footer">
+            <button
+              class="transmit-btn"
+              (click)="transmitPing()"
+              (mouseenter)="audioService.playHover()">
+              TRANSMIT PACKET TO HAJRI
+            </button>
+            @if (transmissionSuccess()) {
+              <span class="success-ping">✓ DATA PACKET DISPATCHED TO CLIENT</span>
+            }
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

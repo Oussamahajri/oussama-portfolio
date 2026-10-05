@@ -1,0 +1,48 @@
+<div class="modal-backdrop" (click)="onClose()">
+  <div class="future-interface" (click)="$event.stopPropagation()">
+    <!-- Top Header -->
+    <div class="interface-header">
+      <div class="header-left">
+        <span class="hud-badge secret">CLASSIFIED // EASTER EGG</span>
+        <h2 class="module-title">FUTURE HORIZON // 2026 - 2030 ROADMAP</h2>
+      </div>
+      <button
+        class="close-btn"
+        (click)="onClose()"
+        (mouseenter)="audioService.playHover()"
+        aria-label="Close future view">
+        [ESC] ✕
+      </button>
+    </div>
+
+    <div class="future-body">
+      <div class="future-lead">
+        <span class="lead-code">TIMELINE // PROJECTION PROTOCOL</span>
+        <h1 class="lead-title">ENGINEERING DESTINATION 2030</h1>
+        <p class="lead-sub">
+          You unlocked the classified future horizon. Here is how Oussama Hajri intends to evolve from an aspiring full-stack developer into an industry-leading software architect.
+        </p>
+      </div>
+
+      <div class="roadmap-grid">
+        @for (item of roadmap; track item.year) {
+          <div class="roadmap-node-card">
+            <div class="node-year-badge">{{ item.year }}</div>
+            <div class="node-status">{{ item.status }}</div>
+            <h3 class="node-title">{{ item.title }}</h3>
+            <p class="node-desc">{{ item.desc }}</p>
+
+            <div class="milestones-box">
+              <span class="box-tag">// STRATEGIC MILESTONES:</span>
+              <ul class="milestone-list">
+                @for (m of item.milestones; track m) {
+                  <li>{{ m }}</li>
+                }
+              </ul>
+            </div>
+          </div>
+        }
+      </div>
+    </div>
+  </div>
+</div>

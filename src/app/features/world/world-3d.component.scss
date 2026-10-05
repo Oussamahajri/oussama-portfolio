@@ -1,0 +1,111 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/typography' as *;
+@use '../../../styles/animations' as *;
+@use '../../../styles/mixins' as *;
+
+.world-canvas-container {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  z-index: 1;
+  overflow: hidden;
+  background-color: $bg-void;
+}
+
+.webgl-canvas {
+  width: 100%;
+  height: 100%;
+  display: block;
+}
+
+.node-tooltip {
+  position: fixed;
+  z-index: 50;
+  pointer-events: none;
+  background: rgba(6, 12, 24, 0.92);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
+  border: 1px solid $cyan-core;
+  box-shadow: 0 0 20px rgba(0, 240, 255, 0.35);
+  padding: 10px 14px;
+  border-radius: 4px;
+  transform: translate3d(0, 0, 0);
+  animation: modalFadeIn 0.15s ease-out;
+
+  .tooltip-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    margin-bottom: 4px;
+
+    .tooltip-code {
+      font-family: $font-mono;
+      font-size: 0.65rem;
+      color: $cyan-core;
+      letter-spacing: 0.15em;
+    }
+
+    .tooltip-ping {
+      font-family: $font-mono;
+      font-size: 0.6rem;
+      color: $accent-green;
+      letter-spacing: 0.1em;
+    }
+  }
+
+  .tooltip-label {
+    font-family: $font-cyber;
+    font-size: 0.95rem;
+    font-weight: 700;
+    color: #ffffff;
+    letter-spacing: 0.08em;
+  }
+
+  .tooltip-sub {
+    font-family: $font-mono;
+    font-size: 0.7rem;
+    color: $silver-metal;
+    margin-top: 2px;
+  }
+
+  .tooltip-cta {
+    font-family: $font-cyber;
+    font-size: 0.65rem;
+    color: $cyan-core;
+    letter-spacing: 0.15em;
+    margin-top: 8px;
+    border-top: 1px dashed rgba(0, 240, 255, 0.25);
+    padding-top: 6px;
+  }
+}
+
+.touch-control-hint {
+  position: absolute;
+  bottom: 96px;
+  left: 50%;
+  transform: translateX(-50%);
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: $font-mono;
+  font-size: 0.68rem;
+  letter-spacing: 0.15em;
+  color: rgba(162, 180, 199, 0.45);
+  pointer-events: none;
+  background: rgba(2, 4, 9, 0.5);
+  padding: 4px 12px;
+  border-radius: 20px;
+  border: 1px solid rgba(255, 255, 255, 0.06);
+
+  .hint-icon {
+    color: $cyan-core;
+  }
+}
+
+@media (min-width: 900px) {
+  .touch-control-hint {
+    display: none;
+  }
+}

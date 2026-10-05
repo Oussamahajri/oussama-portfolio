@@ -1,0 +1,63 @@
+// ==============================================================================
+// HAJRI // DIGITAL IDENTITY - COLOR SYSTEM & TOKENS
+// ==============================================================================
+
+// Deep Void & Dark Backgrounds
+$bg-void: #020409;
+$bg-deep: #050814;
+$bg-panel: rgba(8, 14, 28, 0.85);
+$bg-panel-solid: #090e1d;
+$bg-card: rgba(13, 22, 42, 0.65);
+$bg-card-hover: rgba(18, 30, 58, 0.85);
+$bg-input: rgba(6, 11, 24, 0.9);
+
+// Futuristic Accents
+$cyan-core: #00f0ff;
+$cyan-glow: rgba(0, 240, 255, 0.35);
+$cyan-dim: #008899;
+
+$blue-tech: #0070f3;
+$blue-electric: #2979ff;
+$blue-glow: rgba(0, 112, 243, 0.3);
+
+$silver-light: #e6f1ff;
+$silver-metal: #a2b4c7;
+$silver-muted: #53647b;
+$silver-dark: #223044;
+
+$accent-green: #00ff88;
+$accent-green-glow: rgba(0, 255, 136, 0.3);
+
+$accent-purple: #9945ff;
+$accent-amber: #ffaa00;
+$accent-red: #ff3366;
+
+// Overclock Theme (Matrix / Secret Mode)
+$matrix-green: #00ff66;
+$matrix-bg: #010d05;
+
+// Borders & Dividers
+$border-cyber: rgba(0, 240, 255, 0.2);
+$border-cyber-bright: rgba(0, 240, 255, 0.6);
+$border-subtle: rgba(162, 180, 199, 0.12);
+$border-card: rgba(41, 121, 255, 0.18);
+
+// Shadows & Glows
+$glow-cyan-sm: 0 0 10px rgba(0, 240, 255, 0.25);
+$glow-cyan-md: 0 0 20px rgba(0, 240, 255, 0.4);
+$glow-cyan-lg: 0 0 35px rgba(0, 240, 255, 0.55);
+$glow-blue-md: 0 0 20px rgba(0, 112, 243, 0.4);
+$glow-box: 0 12px 40px rgba(0, 0, 0, 0.8);
+
+// Layout & Dimensions
+$hud-header-height: 72px;
+$hud-footer-height: 80px;
+$modal-max-width: 1100px;
+$border-radius-sm: 4px;
+$border-radius-md: 8px;
+$border-radius-lg: 12px;
+
+// Transitions
+$transition-fast: 0.15s cubic-bezier(0.16, 1, 0.3, 1);
+$transition-smooth: 0.3s cubic-bezier(0.16, 1, 0.3, 1);
+$transition-cinematic: 0.6s cubic-bezier(0.16, 1, 0.3, 1);

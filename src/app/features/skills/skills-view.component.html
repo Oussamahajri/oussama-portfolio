@@ -1,0 +1,144 @@
+<div class="modal-backdrop" (click)="onClose()">
+  <div class="skills-interface" (click)="$event.stopPropagation()">
+    <!-- Top Header -->
+    <div class="interface-header">
+      <div class="header-left">
+        <span class="hud-badge">MODULE // 02</span>
+        <h2 class="module-title">COMPETENCY ATTRIBUTES // SKILL LEVELS</h2>
+      </div>
+      <button
+        class="close-btn"
+        (click)="onClose()"
+        (mouseenter)="audioService.playHover()"
+        aria-label="Close skills view">
+        [ESC] ✕
+      </button>
+    </div>
+
+    <!-- Category Filter Bar -->
+    <div class="category-tabs">
+      @for (cat of categories; track cat.id) {
+        <button
+          class="cat-tab"
+          [class.active]="selectedCategory() === cat.id"
+          (click)="filterCategory(cat.id)"
+          (mouseenter)="audioService.playHover()">
+          {{ cat.label }}
+        </button>
+      }
+    </div>
+
+    <!-- Main Grid: Left Skill Cards as Game Stats, Right Inspector -->
+    <div class="skills-layout">
+      <!-- Left: Game Level Grid -->
+      <div class="skills-roster">
+        @for (skill of getFilteredSkills(); track skill.id) {
+          <div
+            class="game-stat-card"
+            [class.active]="activeSkill().id === skill.id"
+            (click)="selectSkill(skill)"
+            (mouseenter)="audioService.playHover()">
+            <div class="card-top">
+              <span class="skill-category-badge">{{ skill.categoryLabel }}</span>
+              <span class="rank-badge">{{ skill.proficiencyRank }}</span>
+            </div>
+
+            <div class="card-main">
+              <div class="skill-name">{{ skill.name }}</div>
+              <div class="skill-level-display">
+                <span class="level-text">{{ skill.levelDisplay }}</span>
+                <span class="level-fraction">[{{ skill.level }}/10]</span>
+              </div>
+            </div>
+
+            <!-- Game Segment Level Bar (10 segments) -->
+            <div class="segment-bar">
+              @for (seg of [1,2,3,4,5,6,7,8,9,10]; track seg) {
+                <div
+                  class="bar-segment"
+                  [class.filled]="seg <= skill.level"
+                  [class.accent]="seg === skill.level">
+                </div>
+              }
+            </div>
+
+            <div class="card-tags">
+              @for (tag of skill.highlightTags.slice(0, 3); track tag) {
+                <span class="tag-chip">{{ tag }}</span>
+              }
+            </div>
+          </div>
+        }
+      </div>
+
+      <!-- Right: Detailed Telemetry Inspector -->
+      @if (activeSkill(); as sk) {
+        <div class="skill-inspector">
+          <div class="inspector-header">
+            <span class="inspect-label">DIAGNOSTIC TELEMETRY</span>
+            <div class="inspect-level">{{ sk.levelDisplay }}</div>
+          </div>
+
+          <h3 class="inspect-title">{{ sk.name }}</h3>
+          <div class="inspect-category">{{ sk.categoryLabel }} // {{ sk.proficiencyRank }}</div>
+
+          <p class="inspect-description">{{ sk.description }}</p>
+
+          <!-- Core Stat Gauges -->
+          <div class="stat-gauges">
+            <div class="gauge-row">
+              <div class="gauge-info">
+                <span class="gauge-label">EXECUTION SPEED</span>
+                <span class="gauge-val">{{ sk.stats.speed }}%</span>
+              </div>
+              <div class="gauge-track">
+                <div class="gauge-bar" [style.width.%]="sk.stats.speed"></div>
+              </div>
+            </div>
+
+            <div class="gauge-row">
+              <div class="gauge-info">
+                <span class="gauge-label">CONCEPTUAL DEPTH</span>
+                <span class="gauge-val">{{ sk.stats.depth }}%</span>
+              </div>
+              <div class="gauge-track">
+                <div class="gauge-bar" [style.width.%]="sk.stats.depth"></div>
+              </div>
+            </div>
+
+            <div class="gauge-row">
+              <div class="gauge-info">
+                <span class="gauge-label">ARCHITECTURE INTEGRATION</span>
+                <span class="gauge-val">{{ sk.stats.architecture }}%</span>
+              </div>
+              <div class="gauge-track">
+                <div class="gauge-bar" [style.width.%]="sk.stats.architecture"></div>
+              </div>
+            </div>
+          </div>
+
+          <!-- Associated Projects / Missions -->
+          <div class="related-missions">
+            <div class="related-label">// VALIDATED IN MISSIONS:</div>
+            <div class="mission-chips">
+              @for (pName of sk.relatedProjects; track pName) {
+                <div class="mission-chip" (click)="openRelatedMission()" (mouseenter)="audioService.playHover()">
+                  <span class="chip-dot">◈</span>
+                  <span>{{ pName }}</span>
+                </div>
+              }
+            </div>
+          </div>
+
+          <!-- Calibration Disclaimer Requirement -->
+          <div class="disclaimer-box">
+            <span class="disclaimer-icon">ℹ</span>
+            <span class="disclaimer-text">
+              Calibrated self-assessed portfolio statistics reflecting hands-on academic, personal and production experience.
+            </span>
+          </div>
+        </div>
+      }
+    </div>
+  </div>
+</div>

@@ -1,0 +1,332 @@
+@use '../../../styles/variables' as *;
+@use '../../../styles/typography' as *;
+@use '../../../styles/animations' as *;
+@use '../../../styles/mixins' as *;
+
+.entry-container {
+  position: fixed;
+  inset: 0;
+  width: 100vw;
+  height: 100vh;
+  background-color: $bg-void;
+  overflow: hidden;
+  z-index: 1000;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.noise-canvas {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.18;
+  pointer-events: none;
+}
+
+.vignette-overlay {
+  position: absolute;
+  inset: 0;
+  background: radial-gradient(circle at center, transparent 30%, rgba(2, 4, 9, 0.95) 85%);
+  pointer-events: none;
+}
+
+.grid-backdrop {
+  position: absolute;
+  inset: 0;
+  background-image:
+    linear-gradient(rgba(0, 240, 255, 0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 240, 255, 0.04) 1px, transparent 1px);
+  background-size: 50px 50px;
+  pointer-events: none;
+  opacity: 0.6;
+}
+
+.entry-content {
+  position: relative;
+  z-index: 2;
+  width: 100%;
+  max-width: 900px;
+  height: 90vh;
+  padding: 30px;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+}
+
+.telemetry-bar {
+  width: 100%;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  font-family: $font-mono;
+  font-size: 0.72rem;
+  color: $silver-muted;
+  letter-spacing: 0.1em;
+  border-bottom: 1px solid rgba(0, 240, 255, 0.1);
+  padding-bottom: 12px;
+
+  .telemetry-item {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .blink-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background-color: $cyan-core;
+    box-shadow: 0 0 8px $cyan-core;
+    animation: cyberBlink 1s infinite ease-in-out;
+  }
+
+  .status-online {
+    color: $cyan-core;
+    font-weight: 600;
+  }
+}
+
+.stage-wrapper {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  position: relative;
+  width: 100%;
+}
+
+.tech-reticle {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 380px;
+  height: 380px;
+  border: 1px dashed rgba(0, 240, 255, 0.15);
+  border-radius: 50%;
+  pointer-events: none;
+  animation: radarSpin 60s linear infinite;
+
+  &::before, &::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    border-radius: 50%;
+  }
+
+  &::before {
+    width: 280px;
+    height: 280px;
+    border: 1px solid rgba(41, 121, 255, 0.12);
+  }
+
+  &::after {
+    width: 480px;
+    height: 480px;
+    border: 1px dotted rgba(0, 240, 255, 0.08);
+  }
+}
+
+.boot-step {
+  animation: modalFadeIn 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  position: relative;
+  z-index: 5;
+  width: 100%;
+}
+
+.sub-label {
+  font-family: $font-cyber;
+  font-size: 0.75rem;
+  color: $cyan-core;
+  letter-spacing: 0.25em;
+  margin-bottom: 12px;
+}
+
+.glitch-text {
+  font-family: $font-cyber;
+  font-size: clamp(1.4rem, 4vw, 2.2rem);
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: 0.15em;
+  text-transform: uppercase;
+  margin-bottom: 24px;
+  text-shadow: 0 0 15px rgba(0, 240, 255, 0.4);
+}
+
+.loader-bar-wrap {
+  width: min(450px, 85vw);
+  height: 4px;
+  background: rgba(255, 255, 255, 0.08);
+  margin: 0 auto 12px auto;
+  position: relative;
+  overflow: hidden;
+  border-radius: 2px;
+
+  .loader-fill {
+    height: 100%;
+    background: linear-gradient(90deg, $blue-tech, $cyan-core);
+    box-shadow: 0 0 12px $cyan-core;
+    transition: width 0.4s ease-out;
+  }
+}
+
+.loader-percent {
+  font-family: $font-mono;
+  font-size: 0.75rem;
+  color: $silver-metal;
+  letter-spacing: 0.15em;
+}
+
+// Phase Identified
+.phase-identified {
+  .found-badge {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(0, 240, 255, 0.08);
+    border: 1px solid rgba(0, 240, 255, 0.4);
+    padding: 6px 16px;
+    border-radius: 20px;
+    margin-bottom: 20px;
+    box-shadow: 0 0 15px rgba(0, 240, 255, 0.2);
+
+    .badge-icon {
+      color: $cyan-core;
+      font-weight: 900;
+      font-size: 0.8rem;
+    }
+
+    .badge-text {
+      font-family: $font-cyber;
+      font-size: 0.75rem;
+      letter-spacing: 0.2em;
+      color: #ffffff;
+    }
+  }
+
+  .hero-name {
+    font-family: $font-cyber;
+    font-size: clamp(2.4rem, 7vw, 4.5rem);
+    font-weight: 900;
+    line-height: 1.1;
+    letter-spacing: 0.12em;
+    margin-bottom: 16px;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 0.3em;
+
+    .first-name {
+      color: #ffffff;
+      text-shadow: 0 0 25px rgba(255, 255, 255, 0.2);
+    }
+
+    .last-name {
+      color: $cyan-core;
+      text-shadow: 0 0 30px rgba(0, 240, 255, 0.6);
+    }
+  }
+
+  .role-tags {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    font-family: $font-mono;
+    font-size: clamp(0.78rem, 2vw, 0.95rem);
+    letter-spacing: 0.18em;
+    color: $silver-metal;
+    margin-bottom: 40px;
+
+    .role-divider {
+      color: $cyan-core;
+    }
+
+    .role-tag {
+      font-weight: 500;
+    }
+  }
+
+  .action-zone {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .start-button {
+    @include cyber-button;
+    font-size: 1rem;
+    padding: 18px 38px;
+    border-radius: 4px;
+    border: 1px solid $cyan-core;
+    background: rgba(0, 240, 255, 0.12);
+    box-shadow: 0 0 25px rgba(0, 240, 255, 0.35);
+
+    .btn-bracket {
+      font-family: $font-mono;
+      font-size: 0.8rem;
+      color: $cyan-core;
+      margin-left: 6px;
+    }
+
+    &:hover {
+      background: $cyan-core;
+      color: #030712;
+      box-shadow: 0 0 40px rgba(0, 240, 255, 0.7);
+
+      .btn-bracket {
+        color: #030712;
+      }
+    }
+  }
+
+  .start-hint {
+    font-family: $font-mono;
+    font-size: 0.72rem;
+    color: $silver-muted;
+    letter-spacing: 0.08em;
+
+    strong {
+      color: $silver-metal;
+    }
+  }
+}
+
+.boot-logs {
+  width: 100%;
+  font-family: $font-mono;
+  font-size: 0.75rem;
+  color: rgba(162, 180, 199, 0.65);
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  background: rgba(2, 4, 9, 0.6);
+  padding: 12px 18px;
+  border-left: 2px solid rgba(0, 240, 255, 0.3);
+  max-width: 600px;
+
+  .log-line {
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+@media (max-width: 600px) {
+  .entry-content {
+    padding: 16px;
+  }
+  .telemetry-bar {
+    font-size: 0.65rem;
+  }
+  .tech-reticle {
+    width: 260px;
+    height: 260px;
+  }
+}

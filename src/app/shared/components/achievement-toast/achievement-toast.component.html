@@ -1,0 +1,31 @@
+@if (achievementService.recentUnlock(); as ach) {
+  <aside class="achievement-toast-container" role="status" aria-live="polite">
+    <div class="toast-card" [class]="'rarity-' + ach.rarity.toLowerCase()">
+      <div class="toast-glow"></div>
+      <div class="toast-icon-wrap">
+        <span class="toast-icon">⚡</span>
+      </div>
+
+      <div class="toast-body">
+        <div class="toast-badge">
+          <span class="badge-pulse"></span>
+          <span>ACHIEVEMENT UNLOCKED // {{ ach.code }}</span>
+        </div>
+        <h4 class="toast-title">{{ ach.title }}</h4>
+        <p class="toast-desc">{{ ach.description }}</p>
+        <div class="toast-meta">
+          <span class="toast-xp">+{{ ach.xp }} XP</span>
+          <span class="toast-rarity">{{ ach.rarity }}</span>
+        </div>
+      </div>
+
+      <button
+        class="toast-close"
+        (click)="onDismiss()"
+        (mouseenter)="audioService.playHover()"
+        aria-label="Dismiss achievement notification">
+        ✕
+      </button>
+    </div>
+  </aside>
+}

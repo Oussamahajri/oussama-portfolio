@@ -1,0 +1,343 @@
+@use '../../../../styles/variables' as *;
+@use '../../../../styles/typography' as *;
+@use '../../../../styles/animations' as *;
+@use '../../../../styles/mixins' as *;
+
+// TOP HUD HEADER
+.hud-header {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: $hud-header-height;
+  z-index: 100;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0 24px;
+  background: linear-gradient(180deg, rgba(2, 4, 9, 0.95) 0%, rgba(2, 4, 9, 0.6) 80%, transparent 100%);
+  pointer-events: auto;
+  border-bottom: 1px solid rgba(0, 240, 255, 0.1);
+}
+
+.hud-brand {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  cursor: pointer;
+  padding: 8px 12px;
+  border-radius: 4px;
+  transition: background $transition-fast;
+
+  &:hover {
+    background: rgba(0, 240, 255, 0.05);
+
+    .glyph-core {
+      background-color: #ffffff;
+      box-shadow: 0 0 15px $cyan-core;
+    }
+  }
+
+  .brand-glyph {
+    position: relative;
+    width: 28px;
+    height: 28px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    .glyph-ring {
+      position: absolute;
+      inset: 0;
+      border: 1px dashed $cyan-core;
+      border-radius: 50%;
+      animation: radarSpin 12s linear infinite;
+    }
+
+    .glyph-core {
+      width: 10px;
+      height: 10px;
+      background: $cyan-core;
+      box-shadow: 0 0 10px $cyan-core;
+      transform: rotate(45deg);
+      transition: all $transition-smooth;
+    }
+  }
+
+  .brand-title {
+    font-family: $font-cyber;
+    font-size: 0.95rem;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    color: #ffffff;
+
+    .highlight {
+      color: $cyan-core;
+      text-shadow: 0 0 10px rgba(0, 240, 255, 0.5);
+    }
+  }
+
+  .brand-telemetry {
+    display: flex;
+    align-items: center;
+    gap: 6px;
+    font-family: $font-mono;
+    font-size: 0.65rem;
+    color: $silver-muted;
+    letter-spacing: 0.08em;
+    margin-top: 2px;
+
+    .status-indicator {
+      width: 6px;
+      height: 6px;
+      border-radius: 50%;
+      background-color: $accent-green;
+      box-shadow: 0 0 6px $accent-green;
+    }
+  }
+}
+
+.hud-controls {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+
+  .hud-btn {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    background: rgba(8, 14, 28, 0.7);
+    border: 1px solid rgba(0, 240, 255, 0.2);
+    color: $silver-metal;
+    padding: 7px 14px;
+    border-radius: 4px;
+    font-family: $font-cyber;
+    font-size: 0.72rem;
+    letter-spacing: 0.1em;
+    cursor: pointer;
+    transition: all $transition-smooth;
+    backdrop-filter: blur(8px);
+    -webkit-backdrop-filter: blur(8px);
+
+    .key-tag {
+      font-family: $font-mono;
+      font-size: 0.6rem;
+      background: rgba(255, 255, 255, 0.08);
+      padding: 1px 5px;
+      border-radius: 2px;
+      color: $cyan-core;
+    }
+
+    &:hover {
+      background: rgba(0, 240, 255, 0.12);
+      border-color: $cyan-core;
+      color: #ffffff;
+      box-shadow: 0 0 12px rgba(0, 240, 255, 0.25);
+    }
+
+    &.active {
+      background: rgba(0, 240, 255, 0.22);
+      border-color: $cyan-core;
+      color: #ffffff;
+      box-shadow: 0 0 18px rgba(0, 240, 255, 0.4);
+    }
+
+    &.recruiter-btn.active {
+      background: rgba(41, 121, 255, 0.25);
+      border-color: $blue-electric;
+      box-shadow: 0 0 18px rgba(41, 121, 255, 0.4);
+    }
+
+    &.dev-btn.active {
+      background: rgba(0, 255, 136, 0.2);
+      border-color: $accent-green;
+      box-shadow: 0 0 18px rgba(0, 255, 136, 0.4);
+    }
+  }
+
+  .icon-only-btn {
+    padding: 7px 10px;
+  }
+}
+
+// BOTTOM TACTICAL COMMAND DOCK
+.hud-dock {
+  position: fixed;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  z-index: 100;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  pointer-events: auto;
+  padding-bottom: 8px;
+  background: linear-gradient(0deg, rgba(2, 4, 9, 0.98) 0%, rgba(2, 4, 9, 0.75) 60%, transparent 100%);
+}
+
+.dock-container {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  background: rgba(7, 13, 26, 0.85);
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  border: 1px solid rgba(0, 240, 255, 0.25);
+  padding: 6px 14px;
+  border-radius: 8px;
+  box-shadow: 0 8px 32px rgba(0, 0, 0, 0.8), 0 0 15px rgba(0, 240, 255, 0.1);
+  max-width: 96vw;
+  overflow-x: auto;
+
+  @include custom-scrollbar;
+}
+
+.dock-nodes {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.dock-item {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 12px;
+  background: transparent;
+  border: 1px solid transparent;
+  border-radius: 4px;
+  color: $silver-metal;
+  font-family: $font-cyber;
+  font-size: 0.72rem;
+  letter-spacing: 0.12em;
+  cursor: pointer;
+  transition: all $transition-smooth;
+  white-space: nowrap;
+
+  .item-code {
+    font-family: $font-mono;
+    font-size: 0.65rem;
+    color: $silver-muted;
+  }
+
+  &:hover {
+    background: rgba(0, 240, 255, 0.1);
+    color: #ffffff;
+    border-color: rgba(0, 240, 255, 0.3);
+
+    .item-code {
+      color: $cyan-core;
+    }
+  }
+
+  &.active {
+    background: rgba(0, 240, 255, 0.18);
+    border-color: $cyan-core;
+    color: #ffffff;
+    box-shadow: 0 0 12px rgba(0, 240, 255, 0.3);
+
+    .item-code {
+      color: $cyan-core;
+    }
+  }
+}
+
+.dock-achievements {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 6px 12px;
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 170, 0, 0.3);
+  border-radius: 4px;
+  cursor: pointer;
+  transition: all $transition-smooth;
+  position: relative;
+  overflow: hidden;
+
+  &:hover {
+    border-color: $accent-amber;
+    box-shadow: 0 0 12px rgba(255, 170, 0, 0.25);
+  }
+
+  .ach-icon {
+    font-size: 0.95rem;
+  }
+
+  .ach-info {
+    display: flex;
+    flex-direction: column;
+    line-height: 1.1;
+
+    .ach-label {
+      font-family: $font-cyber;
+      font-size: 0.58rem;
+      letter-spacing: 0.12em;
+      color: $accent-amber;
+    }
+
+    .ach-count {
+      font-family: $font-mono;
+      font-size: 0.75rem;
+      font-weight: 700;
+      color: #ffffff;
+    }
+  }
+
+  .ach-progress-ring {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 2px;
+    background: rgba(255, 255, 255, 0.1);
+
+    .ring-fill {
+      height: 100%;
+      background: $accent-amber;
+      transition: width 0.3s ease;
+    }
+  }
+}
+
+.hud-shortcuts-bar {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-family: $font-mono;
+  font-size: 0.63rem;
+  color: rgba(162, 180, 199, 0.45);
+  letter-spacing: 0.1em;
+  margin-top: 6px;
+
+  .sep {
+    color: rgba(0, 240, 255, 0.3);
+  }
+}
+
+@media (max-width: 900px) {
+  .hud-header {
+    padding: 0 12px;
+    height: 60px;
+  }
+  .hud-brand .brand-telemetry {
+    display: none;
+  }
+  .hud-controls .hud-btn .key-tag {
+    display: none;
+  }
+  .hud-controls .hud-btn {
+    padding: 5px 8px;
+    font-size: 0.65rem;
+  }
+  .dock-container {
+    padding: 4px 8px;
+  }
+  .dock-item {
+    padding: 6px 8px;
+    font-size: 0.65rem;
+  }
+  .hud-shortcuts-bar {
+    display: none;
+  }
+}

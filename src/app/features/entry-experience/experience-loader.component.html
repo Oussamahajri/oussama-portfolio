@@ -1,0 +1,78 @@
+<div class="entry-container">
+  <canvas #noiseCanvas class="noise-canvas"></canvas>
+
+  <div class="vignette-overlay"></div>
+  <div class="grid-backdrop"></div>
+
+  <div class="entry-content">
+    <!-- Top System Telemetry -->
+    <div class="telemetry-bar">
+      <span class="telemetry-item"><span class="blink-dot"></span> SECURE PROTOCOL // 0x48414A5249</span>
+      <span class="telemetry-item">TUNISIA / GLOBAL NODE</span>
+      <span class="telemetry-item">STATUS: <span class="status-online">BOOTING</span></span>
+    </div>
+
+    <!-- Center Stage Sequences -->
+    <div class="stage-wrapper">
+      <div class="tech-reticle"></div>
+
+      <!-- Boot Phase 1 & 2: Initializing -->
+      @if (step() >= 1 && step() < 3) {
+        <div class="boot-step phase-initializing">
+          <div class="scanner-line"></div>
+          <div class="sub-label">TRANSMISSION ESTABLISHED</div>
+          <h1 class="glitch-text" data-text="INITIALIZING HAJRI DIGITAL IDENTITY...">
+            INITIALIZING HAJRI DIGITAL IDENTITY...
+          </h1>
+          <div class="loader-bar-wrap">
+            <div class="loader-fill" [style.width.%]="progressPercent()"></div>
+          </div>
+          <div class="loader-percent">{{ progressPercent() }}% DECRYPTED</div>
+        </div>
+      }
+
+      <!-- Boot Phase 3 & 4: Identity Found -->
+      @if (step() >= 3) {
+        <div class="boot-step phase-identified">
+          <div class="found-badge">
+            <span class="badge-icon">✓</span>
+            <span class="badge-text">IDENTITY FOUND</span>
+          </div>
+
+          <h1 class="hero-name">
+            <span class="first-name">OUSSAMA</span>
+            <span class="last-name">HAJRI</span>
+          </h1>
+
+          <div class="role-tags">
+            <span class="role-tag">INFORMATION TECHNOLOGY</span>
+            <span class="role-divider">//</span>
+            <span class="role-tag">FULL-STACK DEVELOPER</span>
+          </div>
+
+          @if (isReady()) {
+            <div class="action-zone">
+              <button
+                class="start-button"
+                (click)="onStart()"
+                (mouseenter)="audioService.playHover()"
+                aria-label="Start interactive experience">
+                <span class="btn-scan"></span>
+                <span class="btn-text">START EXPERIENCE</span>
+                <span class="btn-bracket">[ENTER]</span>
+              </button>
+              <p class="start-hint">Press <strong>[ENTER]</strong> or click above to enter the 3D universe</p>
+            </div>
+          }
+        </div>
+      }
+    </div>
+
+    <!-- Bottom Terminal Logs -->
+    <div class="boot-logs">
+      @for (log of statusLog(); track $index) {
+        <div class="log-line">{{ log }}</div>
+      }
+    </div>
+  </div>
+</div>
