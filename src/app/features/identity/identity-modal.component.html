@@ -21,8 +21,9 @@
       <div class="dossier-sidebar">
         <div class="avatar-holo-wrap">
           <div class="holo-scanline"></div>
-          <div class="avatar-box">
-            <span class="avatar-glyph">OH</span>
+          <div class="avatar-box photo-mode">
+            <img src="/oussama-profile.jpg" alt="Oussama Hajri — Full-Stack Developer" class="avatar-photo" />
+            <div class="avatar-holo-ring"></div>
           </div>
           <div class="avatar-status">
             <span class="status-indicator"></span>
@@ -52,7 +53,7 @@
       <!-- Right Column: Profile Narrative, Philosophy & Modules -->
       <div class="dossier-main">
         <div class="identity-lead">
-          <span class="identity-code">HAJRI // 0xIT-ENG</span>
+          <span class="identity-code">HAJRI  0xIT-ENG</span>
           <h1 class="identity-name">{{ profile.name }}</h1>
           <h2 class="identity-role">{{ profile.role }}</h2>
           <p class="identity-summary">{{ profile.bioSummary }}</p>
@@ -61,7 +62,7 @@
         <!-- Core Engineering Philosophy -->
         <div class="philosophy-section">
           <div class="section-title">
-            <span class="slash">//</span> CORE ENGINEERING PHILOSOPHY
+            <span class="slash"></span> CORE ENGINEERING PHILOSOPHY
           </div>
           <blockquote class="philosophy-quote">
             "{{ profile.corePhilosophy }}"
@@ -71,7 +72,7 @@
         <!-- Core Focus Vectors -->
         <div class="interests-section">
           <div class="section-title">
-            <span class="slash">//</span> ARCHITECTURAL VECTORS
+            <span class="slash"></span> ARCHITECTURAL VECTORS
           </div>
           <div class="vector-tags">
             @for (interest of profile.interests; track interest) {
@@ -87,7 +88,7 @@
         <div class="achievements-section">
           <div class="section-header">
             <div class="section-title">
-              <span class="slash">//</span> REPUTATION & ACHIEVEMENTS
+              <span class="slash"></span> REPUTATION & ACHIEVEMENTS
             </div>
             <div class="ach-summary">
               UNLOCKED: {{ achievementService.unlockedCount() }} / {{ achievementService.totalCount() }} ({{ achievementService.totalXp() }} XP)

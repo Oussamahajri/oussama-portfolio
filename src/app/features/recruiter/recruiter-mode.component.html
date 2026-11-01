@@ -73,7 +73,10 @@
           <div class="executive-card">
             <h2 class="card-title">CANDIDATE PROFILE</h2>
             <div class="candidate-header">
-              <div>
+              <div class="candidate-photo-wrap">
+                <img src="/oussama-profile.jpg" alt="Oussama Hajri" class="candidate-photo" />
+              </div>
+              <div class="candidate-info">
                 <h3 class="candidate-name">{{ profile.name }}</h3>
                 <div class="candidate-spec">{{ profile.field }} · {{ profile.role }}</div>
                 <div class="candidate-loc">Tunisia (Available for Local, Remote, & Relocation)</div>
@@ -243,7 +246,7 @@
       <div class="tab-pane animate-modal-in">
         <div class="cv-actions-bar">
           <button class="print-cv-btn" (click)="triggerPrintCv()">
-            🖨️ PRINT / SAVE AS PDF
+             PRINT / SAVE AS PDF
           </button>
           <a [href]="'mailto:' + profile.email" class="email-cv-btn">
             REQUEST FORMAL CV VIA EMAIL
@@ -259,7 +262,9 @@
             <div class="cv-contacts">
               <div>Email: {{ profile.email }}</div>
               <div>Location: {{ profile.location }}</div>
-              <div>LinkedIn: linkedin.com/in/oussama-hajri</div>
+              <div>LinkedIn: www.linkedin.com/in/
+oussama-hajri-063763360
+</div>
               <div>GitHub: github.com/oussama-hajri</div>
             </div>
           </header>
@@ -322,11 +327,11 @@
               </div>
             </a>
 
-            <a href="https://linkedin.com/in/oussama-hajri" target="_blank" rel="noopener noreferrer" class="contact-node-card">
+            <a href="www.linkedin.com/in/oussama-hajri-063763360" target="_blank" rel="noopener noreferrer" class="contact-node-card">
               <span class="node-icon">💼</span>
               <div class="node-info">
                 <span class="node-type">LINKEDIN PROFILE</span>
-                <span class="node-val">linkedin.com/in/oussama-hajri</span>
+                <span class="node-val">linkedin.com/in/oussama-hajri-063763360</span>
               </div>
             </a>
 

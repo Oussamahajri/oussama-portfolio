@@ -133,28 +133,49 @@
 
   .candidate-header {
     display: flex;
-    justify-content: space-between;
+    gap: 20px;
     align-items: flex-start;
 
-    .candidate-name {
-      font-family: $font-cyber;
-      font-size: 1.6rem;
-      font-weight: 800;
-      color: #ffffff;
+    .candidate-photo-wrap {
+      flex-shrink: 0;
+
+      .candidate-photo {
+        width: 80px;
+        height: 80px;
+        border-radius: 50%;
+        object-fit: cover;
+        object-position: center top;
+        border: 2px solid $cyan-core;
+        box-shadow:
+          0 0 16px rgba(0, 240, 255, 0.4),
+          0 0 32px rgba(0, 240, 255, 0.12);
+        display: block;
+      }
     }
 
-    .candidate-spec {
-      font-family: $font-mono;
-      font-size: 0.85rem;
-      color: $blue-electric;
-      margin-top: 2px;
-    }
+    .candidate-info {
+      flex: 1;
 
-    .candidate-loc {
-      font-family: $font-body;
-      font-size: 0.78rem;
-      color: $silver-muted;
-      margin-top: 4px;
+      .candidate-name {
+        font-family: $font-cyber;
+        font-size: 1.6rem;
+        font-weight: 800;
+        color: #ffffff;
+      }
+
+      .candidate-spec {
+        font-family: $font-mono;
+        font-size: 0.85rem;
+        color: $blue-electric;
+        margin-top: 2px;
+      }
+
+      .candidate-loc {
+        font-family: $font-body;
+        font-size: 0.78rem;
+        color: $silver-muted;
+        margin-top: 4px;
+      }
     }
 
     .status-pill {
@@ -165,6 +186,7 @@
       border: 1px solid rgba(0, 255, 136, 0.3);
       padding: 4px 10px;
       border-radius: 20px;
+      flex-shrink: 0;
     }
   }
 
